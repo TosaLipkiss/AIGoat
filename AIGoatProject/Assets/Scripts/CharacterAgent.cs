@@ -6,17 +6,20 @@ using UnityEngine.AI;
 public class CharacterAgent : MonoBehaviour
 {
     [SerializeField] GameObject destination;
+    Animator goatAnimator;
 
     NavMeshAgent goatsAgent;
 
-    void Start()
+    private void Start()
     {
-        goatsAgent = GetComponent<NavMeshAgent>();
+        goatAnimator = GetComponent<Animator>();
     }
 
-
-    void Update()
+    public void WalkAround()
     {
+        goatAnimator.SetBool("Walk", true);
+        goatsAgent = GetComponent<NavMeshAgent>();
+        goatsAgent.speed = 1.5f;
         goatsAgent.SetDestination(destination.transform.position);
     }
 }
