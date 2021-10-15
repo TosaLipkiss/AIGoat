@@ -10,7 +10,7 @@ public class CharacterAgent : MonoBehaviour
 
     public bool stateIsWalking;
 
-    NavMeshAgent goatsAgent;
+    public NavMeshAgent goatsAgent;
 
     private void Start()
     {
@@ -27,6 +27,7 @@ public class CharacterAgent : MonoBehaviour
 
     public void WalkAround()
     {
+    //    GetComponent<NavMeshAgent>().enabled = true;
         goatAnimator.SetBool("Walk", true);
         goatsAgent = GetComponent<NavMeshAgent>();
         goatsAgent.speed = 1.5f;
