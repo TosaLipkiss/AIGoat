@@ -43,7 +43,7 @@ public class AIStateManager : MonoBehaviour
 
             else if (currentState == state.WalkRandom)
             {
-                characterAgent.WalkAround();
+                characterAgent.stateIsWalking = true;
             }
         }
 
@@ -80,6 +80,7 @@ public class AIStateManager : MonoBehaviour
 
     void ResetStates()
     {
+        characterAgent.stateIsWalking = false;
         goatAnimator.SetBool("Walk", false);
         goatAnimator.SetBool("PlayFlute", false);
     }

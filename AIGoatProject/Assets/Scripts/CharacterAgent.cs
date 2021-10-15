@@ -8,11 +8,21 @@ public class CharacterAgent : MonoBehaviour
     [SerializeField] GameObject destination;
     Animator goatAnimator;
 
+    public bool stateIsWalking;
+
     NavMeshAgent goatsAgent;
 
     private void Start()
     {
         goatAnimator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if(stateIsWalking == true)
+        {
+            WalkAround();
+        }
     }
 
     public void WalkAround()
