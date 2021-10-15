@@ -19,6 +19,7 @@ public class AIStateManager : MonoBehaviour
     bool changingState = false;
     bool playerInfront = false;
     bool isInteractingWithPlayer = false;
+    bool alreadyGreeting = false;
 
     [SerializeField] CharacterAgent characterAgent;
 
@@ -34,6 +35,7 @@ public class AIStateManager : MonoBehaviour
     void Start()
     {
         goatAnimator = GetComponent<Animator>();
+        Idle();
     //    newState = WaitForNewState(10f);
         currentState = state.Idle;
     }
@@ -95,25 +97,6 @@ public class AIStateManager : MonoBehaviour
         Debug.DrawRay(rayObject.transform.position, forward, Color.blue);
     }
 
-    /*    IEnumerator WaitForNewState(float waitTime)
-        {
-            yield return new WaitForSeconds(waitTime);
-            //    Debug.Log("Changing state");
-            changingState = true;
-            randomNumberState = Random.Range(0, 2);
-
-            if(randomNumberState == 0)
-            {
-                currentState = state.PlayFlute;
-            }
-            else if(randomNumberState == 1)
-            {
-                currentState = state.WalkRandom;
-            }
-
-            Debug.Log("state is: " + currentState);
-        }*/
-
 
     //Switching state in a couratine
     IEnumerator SwitchState()
@@ -161,6 +144,7 @@ public class AIStateManager : MonoBehaviour
         playFlute.SetActive(false);
         flute.SetActive(true);
         characterAgent.stateIsWalking = false;
+        isInteractingWithPlayer = false;
 
         goatAnimator.SetBool("PlayerIdle", false);
         goatAnimator.SetBool("Idle", false);
@@ -191,9 +175,14 @@ public class AIStateManager : MonoBehaviour
         {
             Debug.Log("Doing PlayerInfront method");
 
+            if(alreadyGreeting == false)
+            {
+                goatAnimator.SetTrigger("GreetPlayer");
+                alreadyGreeting = true;
+            }
+
             playerInfront = true;
             GetComponent<NavMeshAgent>().enabled = false;
-            goatAnimator.SetTrigger("GreetPlayer");
             goatAnimator.SetBool("PlayerIdle", true);
 
             isInteractingWithPlayer = true;
