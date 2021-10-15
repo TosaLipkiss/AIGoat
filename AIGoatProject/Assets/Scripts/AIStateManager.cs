@@ -6,6 +6,8 @@ public class AIStateManager : MonoBehaviour
 {
     public GameObject playFlute;
     public GameObject flute;
+    public GameObject rayObject;
+
     Animator goatAnimator;
 
     int randomNumberState;
@@ -50,9 +52,24 @@ public class AIStateManager : MonoBehaviour
         changingState = false;
     }
 
+    private void FixedUpdate()
+    {
+        RaycastHit hit;
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+
+        if ((Physics.Raycast(rayObject.transform.position, forward, out hit, 15)))
+        {
+            if(hit.transform.tag == "Player")
+            {
+                Debug.Log("Player detected");
+            }
+        }
+
+        Debug.DrawRay(rayObject.transform.position, forward, Color.blue);
+    }
+
     IEnumerator WaitForNewState(float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
 
         Debug.Log("Changing state");
         changingState = true;
@@ -68,8 +85,16 @@ public class AIStateManager : MonoBehaviour
         }
 
         Debug.Log("state is: " + currentState);
+
+        yield return new WaitForSeconds(waitTime);
     }
 
+
+
+
+
+
+    //STATE METHODS
     void PlayFlute()
     {
         goatAnimator.SetBool("PlayFlute", true);
