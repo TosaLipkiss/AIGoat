@@ -14,12 +14,18 @@ public class AIStateManager : MonoBehaviour
     public Rigidbody rb;
 
     int randomNumberState;
-    float stateIntervall = 10f;
+    float stateIntervall = 3f;
 
     bool changingState = false;
     bool playerInfront = false;
     bool isInteractingWithPlayer = false;
     bool alreadyGreeting = false;
+
+    [SerializeField] AudioClip greetingsSound;
+    [SerializeField] AudioClip whatYouUpToSound;
+    [SerializeField] AudioClip walkingSound;
+    [SerializeField] AudioClip fluteSound;
+    public SoundSingleton soundSingleton;
 
     [SerializeField] CharacterAgent characterAgent;
 
@@ -36,7 +42,7 @@ public class AIStateManager : MonoBehaviour
     {
         goatAnimator = GetComponent<Animator>();
         Idle();
-    //    newState = WaitForNewState(10f);
+        //    newState = WaitForNewState(10f);
         currentState = state.Idle;
     }
 
@@ -51,7 +57,7 @@ public class AIStateManager : MonoBehaviour
         {
             ResetStates();
 
-            if(currentState == state.Idle)
+            if (currentState == state.Idle)
             {
                 Idle();
             }
@@ -61,6 +67,7 @@ public class AIStateManager : MonoBehaviour
             }
             else if (currentState == state.WalkRandom)
             {
+                FindObjectOfType<SoundSingleton>().OtherSound(walkingSound);
                 characterAgent.stateIsWalking = true;
             }
 
@@ -82,10 +89,13 @@ public class AIStateManager : MonoBehaviour
         {
             if (hit.transform.tag == "Player")
             {
+                ResetStates();
                 Debug.Log("Player Detected");
+
                 changingState = true;
-                currentState = state.PlayerIsInfront;
                 playerInfront = true;
+
+                currentState = state.PlayerIsInfront;
             }
             else
             {
@@ -103,27 +113,30 @@ public class AIStateManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(stateIntervall);
-
-            Debug.Log("Changing state");
-
-            changingState = true;
-            randomNumberState = Random.Range(0, 3);
-
-            if(randomNumberState == 0)
+            if(playerInfront == false)
             {
-                currentState = state.Idle;
-            }
-            else if (randomNumberState == 1)
-            {
-                currentState = state.PlayFlute;
-            }
-            else if (randomNumberState == 2)
-            {
-                currentState = state.WalkRandom;
-            }
+                yield return new WaitForSeconds(stateIntervall);
 
-            Debug.Log("state is: " + currentState);
+                Debug.Log("Changing state");
+
+                changingState = true;
+                randomNumberState = Random.Range(0, 3);
+
+                if (randomNumberState == 0)
+                {
+                    currentState = state.Idle;
+                }
+                else if (randomNumberState == 1)
+                {
+                    currentState = state.PlayFlute;
+                }
+                else if (randomNumberState == 2)
+                {
+                    currentState = state.WalkRandom;
+                }
+
+                Debug.Log("state is: " + currentState);
+            }
 
             yield return new WaitForSeconds(0.1f);
         }
@@ -146,6 +159,8 @@ public class AIStateManager : MonoBehaviour
         characterAgent.stateIsWalking = false;
         isInteractingWithPlayer = false;
 
+        soundSingleton.other.Stop();
+
         goatAnimator.SetBool("PlayerIdle", false);
         goatAnimator.SetBool("Idle", false);
         goatAnimator.SetBool("Walk", false);
@@ -163,6 +178,7 @@ public class AIStateManager : MonoBehaviour
 
     void PlayFlute()
     {
+        FindObjectOfType<SoundSingleton>().OtherSound(fluteSound);
         goatAnimator.SetBool("PlayFlute", true);
         playFlute.SetActive(true);
         flute.SetActive(false);
@@ -177,6 +193,7 @@ public class AIStateManager : MonoBehaviour
 
             if(alreadyGreeting == false)
             {
+                FindObjectOfType<SoundSingleton>().Goat(greetingsSound);
                 goatAnimator.SetTrigger("GreetPlayer");
                 alreadyGreeting = true;
             }
