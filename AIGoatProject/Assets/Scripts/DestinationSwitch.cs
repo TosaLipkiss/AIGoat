@@ -36,15 +36,13 @@ public class DestinationSwitch : MonoBehaviour
         positionX = Random.Range(-10, 12);
         positionZ = Random.Range(-20, 30);
 
-/*        if(isBirdHouseDestination == true)
+       if(isBirdHouseDestination == true)
         {
             randomDestination.transform.position = new Vector3(birdHouseDestination.transform.position.x, 0, birdHouseDestination.transform.position.z + 0.4f);
         }
         else
         {
             randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
-        }*/
-
-        randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
+        }
     }
 }

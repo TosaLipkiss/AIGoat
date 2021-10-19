@@ -7,6 +7,7 @@ public class AIStateManager : MonoBehaviour
     public GameObject playFlute;
     public GameObject flute;
     public GameObject rayObject;
+    public GameObject birdHouse;
 
     Animator goatAnimator;
 
@@ -31,7 +32,7 @@ public class AIStateManager : MonoBehaviour
     public DestinationSwitch destinationSwitch;
 
     state currentState;
-    IEnumerator newState;
+
     enum state
     {
         WalkRandom,
@@ -93,7 +94,8 @@ public class AIStateManager : MonoBehaviour
             if (hit.transform.tag == "Player")
             {
                 ResetStates();
-           //     Debug.Log("Player Detected");
+
+                StopAllCoroutines();
 
                 changingState = true;
                 playerInfront = true;
@@ -191,8 +193,9 @@ public class AIStateManager : MonoBehaviour
     void FeedBirdHouse()
     {
         Debug.Log("Feeding birds");
-/*        destinationSwitch.isBirdHouseDestination = true;
-        destinationSwitch.SwitchDestination();*/
+
+        destinationSwitch.isBirdHouseDestination = true;
+   //     characterAgent.goatsAgent.SetDestination(birdHouse.transform.position);
     }
 
     void PlayerInfront()
