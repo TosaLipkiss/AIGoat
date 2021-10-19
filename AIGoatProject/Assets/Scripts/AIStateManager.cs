@@ -28,6 +28,7 @@ public class AIStateManager : MonoBehaviour
     public SoundSingleton soundSingleton;
 
     [SerializeField] CharacterAgent characterAgent;
+    public DestinationSwitch destinationSwitch;
 
     state currentState;
     IEnumerator newState;
@@ -42,7 +43,9 @@ public class AIStateManager : MonoBehaviour
     {
         goatAnimator = GetComponent<Animator>();
         Idle();
-        //    newState = WaitForNewState(10f);
+
+        BirdHouse.feed += FeedBirdHouse;
+
         currentState = state.Idle;
     }
 
@@ -90,7 +93,7 @@ public class AIStateManager : MonoBehaviour
             if (hit.transform.tag == "Player")
             {
                 ResetStates();
-                Debug.Log("Player Detected");
+           //     Debug.Log("Player Detected");
 
                 changingState = true;
                 playerInfront = true;
@@ -117,7 +120,7 @@ public class AIStateManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(stateIntervall);
 
-                Debug.Log("Changing state");
+                Debug.Log("Changing state..");
 
                 changingState = true;
                 randomNumberState = Random.Range(0, 3);
@@ -183,6 +186,13 @@ public class AIStateManager : MonoBehaviour
         playFlute.SetActive(true);
         flute.SetActive(false);
         GetComponent<NavMeshAgent>().enabled = false;
+    }
+
+    void FeedBirdHouse()
+    {
+        Debug.Log("Feeding birds");
+/*        destinationSwitch.isBirdHouseDestination = true;
+        destinationSwitch.SwitchDestination();*/
     }
 
     void PlayerInfront()
