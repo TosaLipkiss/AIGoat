@@ -33,16 +33,18 @@ public class DestinationSwitch : MonoBehaviour
         rb.useGravity = false;
         goatNavmesh.enabled = true;
 
-        positionX = Random.Range(-10, 12);
-        positionZ = Random.Range(-20, 30);
+        positionX = Random.Range(-5, 18);
+        positionZ = Random.Range(-13, 14);
 
-/*       if(isBirdHouseDestination == true)
-        {
-            randomDestination.transform.position = new Vector3(birdHouseDestination.transform.position.x, 0, birdHouseDestination.transform.position.z + 0.4f);
-        }
-        else
-        {
-            randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
-        }*/
+        /*       if(isBirdHouseDestination == true)
+                {
+                    randomDestination.transform.position = new Vector3(birdHouseDestination.transform.position.x, 0, birdHouseDestination.transform.position.z + 0.4f);
+                }
+                else
+                {
+                    randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
+                }*/
+
+        randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
     }
 }
