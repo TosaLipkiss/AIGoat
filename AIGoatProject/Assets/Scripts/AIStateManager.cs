@@ -194,8 +194,8 @@ public class AIStateManager : MonoBehaviour
     {
         Debug.Log("Feeding birds");
 
-        destinationSwitch.isBirdHouseDestination = true;
-   //     characterAgent.goatsAgent.SetDestination(birdHouse.transform.position);
+     //   destinationSwitch.isBirdHouseDestination = true;
+   //     characterAgent.goatsAgent.SetDestination(birdHouse.transform.position);   //<---- detta vill jag
     }
 
     void PlayerInfront()

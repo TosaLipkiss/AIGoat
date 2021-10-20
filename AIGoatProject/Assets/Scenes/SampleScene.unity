@@ -678,7 +678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201851962}
   m_LocalRotation: {x: -0, y: -0.0013448407, z: -0, w: 0.9999991}
-  m_LocalPosition: {x: -6.33, y: -0.284, z: 0.57}
+  m_LocalPosition: {x: -5.4, y: -0.284, z: 0.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1939274237}
@@ -2815,7 +2815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 672ea6422cbb9cc4c91f9eb2bb3195ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.116
+      value: -0.014
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 672ea6422cbb9cc4c91f9eb2bb3195ea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2860,11 +2860,15 @@ PrefabInstance:
     - target: {fileID: -6609047081983019477, guid: 672ea6422cbb9cc4c91f9eb2bb3195ea, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 92a7b62f7ad951c42aa04e980b455f02, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d8350ca78185b64c89a421b163588cd, type: 2}
     - target: {fileID: -6609047081983019477, guid: 672ea6422cbb9cc4c91f9eb2bb3195ea, type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
-      objectReference: {fileID: 2100000, guid: 3d8350ca78185b64c89a421b163588cd, type: 2}
+      objectReference: {fileID: 2100000, guid: 92a7b62f7ad951c42aa04e980b455f02, type: 2}
+    - target: {fileID: -6609047081983019477, guid: 672ea6422cbb9cc4c91f9eb2bb3195ea, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 786bab7bbcb9c104f96ddce8d96c2a8b, type: 2}
     - target: {fileID: 919132149155446097, guid: 672ea6422cbb9cc4c91f9eb2bb3195ea, type: 3}
       propertyPath: m_Name
       value: Goat
@@ -3469,10 +3473,11 @@ MonoBehaviour:
   playFlute: {fileID: 907426071}
   flute: {fileID: 1456266940}
   rayObject: {fileID: 1251281987}
+  birdHouse: {fileID: 201851962}
   goatNavmesh: {fileID: 1409632134}
   rb: {fileID: 1409632135}
-  greetingsSound: {fileID: 8300000, guid: 07a8aa3f5efc6c445a6181ac726d6ef6, type: 3}
-  whatYouUpToSound: {fileID: 8300000, guid: 07a8aa3f5efc6c445a6181ac726d6ef6, type: 3}
+  greetingsSound: {fileID: 8300000, guid: 71e2ba2b61408494db401ae5b5734164, type: 3}
+  whatYouUpToSound: {fileID: 8300000, guid: 71e2ba2b61408494db401ae5b5734164, type: 3}
   walkingSound: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
   fluteSound: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
   soundSingleton: {fileID: 297918894}
@@ -5405,7 +5410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998680478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17, y: 0, z: 2.84}
+  m_LocalPosition: {x: -1.84, y: 0, z: 3.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
