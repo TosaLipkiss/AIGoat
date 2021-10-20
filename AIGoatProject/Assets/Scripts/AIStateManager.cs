@@ -15,7 +15,7 @@ public class AIStateManager : MonoBehaviour
     public Rigidbody rb;
 
     int randomNumberState;
-    float stateIntervall = 3f;
+    float stateIntervall = 6f;
 
     bool changingState = false;
     bool playerInfront = false;
@@ -89,14 +89,12 @@ public class AIStateManager : MonoBehaviour
         RaycastHit hit;
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
 
-        if ((Physics.Raycast(rayObject.transform.position, forward, out hit, 10)))
+        //Physics.Raycast(rayObject.transform.position, forward, out hit, 10);
+
+        if (Physics.Raycast(rayObject.transform.position, forward, out hit, 10))
         {
-            if (hit.transform.tag == "Player")
+            if (hit.transform.CompareTag("Player"))
             {
-                ResetStates();
-
-                StopAllCoroutines();
-
                 changingState = true;
                 playerInfront = true;
 
@@ -106,6 +104,8 @@ public class AIStateManager : MonoBehaviour
             {
                 playerInfront = false;
                 isInteractingWithPlayer = false;
+
+              //  currentState = state.WalkRandom;
             }
         }
 
@@ -122,24 +122,24 @@ public class AIStateManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(stateIntervall);
 
-                Debug.Log("Changing state..");
-
                 changingState = true;
-                randomNumberState = Random.Range(0, 3);
 
-                if (randomNumberState == 0)
-                {
-                    currentState = state.Idle;
-                }
-                else if (randomNumberState == 1)
-                {
-                    currentState = state.PlayFlute;
-                }
-                else if (randomNumberState == 2)
+                randomNumberState = Random.Range(0, 5);
+
+                if (randomNumberState <= 2)
                 {
                     currentState = state.WalkRandom;
                 }
+                else if (randomNumberState == 3)
+                {
+                    currentState = state.PlayFlute;
+                }
+                else if (randomNumberState == 4)
+                {
+                    currentState = state.Idle;
+                }
 
+                Debug.Log(randomNumberState);
                 Debug.Log("state is: " + currentState);
             }
 
@@ -192,18 +192,17 @@ public class AIStateManager : MonoBehaviour
 
     void FeedBirdHouse()
     {
-        Debug.Log("Feeding birds");
-
-     //   destinationSwitch.isBirdHouseDestination = true;
-   //     characterAgent.goatsAgent.SetDestination(birdHouse.transform.position);   //<---- detta vill jag
+/*        characterAgent.GetComponent<NavMeshAgent>().enabled = true;
+        characterAgent.goatsAgent = GetComponent<NavMeshAgent>();
+        characterAgent.goatsAgent.speed = 1.5f;
+        characterAgent.goatAnimator.SetBool("Walk", true);*/
+      //  characterAgent.destination = birdHouse;
     }
 
     void PlayerInfront()
     {
         if (playerInfront == true && isInteractingWithPlayer == false)
         {
-            Debug.Log("Doing PlayerInfront method");
-
             if(alreadyGreeting == false)
             {
                 FindObjectOfType<SoundSingleton>().Goat(greetingsSound);
@@ -211,11 +210,16 @@ public class AIStateManager : MonoBehaviour
                 alreadyGreeting = true;
             }
 
-            playerInfront = true;
             GetComponent<NavMeshAgent>().enabled = false;
             goatAnimator.SetBool("PlayerIdle", true);
 
             isInteractingWithPlayer = true;
         }
+
+     /*   else if(playerInfront == true && isInteractingWithPlayer == true)
+        {
+            GetComponent<NavMeshAgent>().enabled = false;
+            goatAnimator.SetBool("PlayerIdle", true);
+        }*/
     }
 }

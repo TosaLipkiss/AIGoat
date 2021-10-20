@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class CharacterAgent : MonoBehaviour
 {
-    [SerializeField] GameObject destination;
+    public GameObject destination;
 
-    Animator goatAnimator;
+    public Animator goatAnimator;
 
     public bool stateIsWalking;
 

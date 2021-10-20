@@ -38,7 +38,7 @@ public class DestinationSwitch : MonoBehaviour
 
         /*       if(isBirdHouseDestination == true)
                 {
-                    randomDestination.transform.position = new Vector3(birdHouseDestination.transform.position.x, 0, birdHouseDestination.transform.position.z + 0.4f);
+                    randomDestination.transform.position = new Vector3(birdHouseDestination.transform.position.x, 0, birdHouseDestination.transform.position.z);
                 }
                 else
                 {

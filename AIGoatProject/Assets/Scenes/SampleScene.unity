@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 201851965}
   - component: {fileID: 201851966}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BirdHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,7 +668,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.73, y: 2, z: 3}
+  m_Size: {x: 3.27, y: 2, z: 4.1}
   m_Center: {x: 0, y: 1.01, z: 0}
 --- !u!4 &201851964
 Transform:
@@ -677,15 +677,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201851962}
-  m_LocalRotation: {x: -0, y: -0.0013448407, z: -0, w: 0.9999991}
+  m_LocalRotation: {x: -0, y: 0.7159655, z: -0, w: 0.6981357}
   m_LocalPosition: {x: -5.4, y: -0.284, z: 0.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1939274237}
   - {fileID: 1420866262}
+  - {fileID: 559492164}
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: -0.154, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 91.445, z: 0}
 --- !u!114 &201851965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1624,6 +1625,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2464317258520144025, guid: 3a2f96acd5b6335478b25cbab5b4d2dc, type: 3}
   m_PrefabInstance: {fileID: 458094382}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &559492163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 559492164}
+  - component: {fileID: 559492165}
+  m_Layer: 0
+  m_Name: BirdHouseDestination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &559492164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559492163}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.61, z: 0.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 201851964}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &559492165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559492163}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 2.18, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &569795472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3482,11 +3527,6 @@ MonoBehaviour:
   rb: {fileID: 1409632135}
   greetingsSound: {fileID: 8300000, guid: cf6d72f3496d57949b3a2480b6823dfa, type: 3}
   whatYouUpToSound: {fileID: 8300000, guid: 71e2ba2b61408494db401ae5b5734164, type: 3}
-  gasp: {fileID: 8300000, guid: 0e3c7ca157298c646aa787a80af52057, type: 3}
-  canYouStopItPlease: {fileID: 8300000, guid: 00c5a400fb90adc45a12420d9f287edd, type: 3}
-  wellLetsSeeHereNow: {fileID: 8300000, guid: db928259d747d0945a91c12be1e0607b, type: 3}
-  hmmIWonder: {fileID: 8300000, guid: 64149128a31248341acb431a00d91d3f, type: 3}
-  lovelyDay: {fileID: 8300000, guid: ba54d58e284277c4e892a294261634e7, type: 3}
   walkingSound: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
   fluteSound: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
   soundSingleton: {fileID: 297918894}
@@ -5515,7 +5555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998680478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.33, y: 0, z: 3.92}
+  m_LocalPosition: {x: -3.33, y: 0, z: 6.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5538,7 +5578,7 @@ MonoBehaviour:
   goatNavmesh: {fileID: 1409632134}
   rb: {fileID: 1409632135}
   randomDestination: {fileID: 1998680478}
-  birdHouseDestination: {fileID: 201851962}
+  birdHouseDestination: {fileID: 559492163}
   isBirdHouseDestination: 0
 --- !u!1001 &2018564778
 PrefabInstance:
