@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -26,6 +24,10 @@ public class StateMachine : MonoBehaviour
     public GameObject rayObject;
 
     public bool alreadyGreetPlayer = false;
+
+    public float delayTimer;
+
+    public int disturbedCountdown = 2;
 
     void Start()
     {
@@ -71,7 +73,7 @@ public class StateMachine : MonoBehaviour
 
     public void SetPlayerInfront()
     {
-        if(!alreadyGreetPlayer)
+        if (!alreadyGreetPlayer)
         {
             alreadyGreetPlayer = true;
 
@@ -81,6 +83,18 @@ public class StateMachine : MonoBehaviour
         {
             ChangeState(new PlayerInfront());
         }
+    }
+
+
+    //Pilla på detta
+    public void DelayTimer()
+    {
+        while (delayTimer < 20f)
+        {
+            delayTimer += Time.deltaTime;
+        }
+
+        delayTimer = 0f;
     }
 }
 
@@ -99,7 +113,7 @@ public class RandowmWalk : Istate
     {
         characterAgent.ResetAgent();
 
-        stateDuration = Random.Range(2f,5f);
+        stateDuration = Random.Range(2f, 5f);
 
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
@@ -114,7 +128,7 @@ public class RandowmWalk : Istate
 
         characterAgent.WalkAround();
 
-        if(characterAgent.CheckPlayerInfront())
+        if (characterAgent.CheckPlayerInfront())
         {
             stateMachine.SetPlayerInfront();
         }
@@ -137,7 +151,6 @@ public class Idle : Istate
     StateMachine stateMachine;
     CharacterAgent characterAgent;
 
-
     float timer;
 
     public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
@@ -149,7 +162,7 @@ public class Idle : Istate
 
         int randomAnimation = Random.Range(0, 8);
 
-        if(randomAnimation <= 2)
+        if (randomAnimation <= 2)
         {
             characterAgent.IdleAnimation();
         }
@@ -158,11 +171,11 @@ public class Idle : Istate
             characterAgent.IdleGaspAnimation();
             characterAgent.IdleGaspSound();
         }
-        else if(randomAnimation >= 4 || randomAnimation <= 6)
+        else if (randomAnimation >= 4 || randomAnimation <= 6)
         {
             characterAgent.IdleLookAroundpAnimation();
         }
-        else if(randomAnimation == 7)
+        else if (randomAnimation == 7)
         {
             characterAgent.IdleHmmAnimation();
         }
@@ -175,6 +188,11 @@ public class Idle : Istate
         if (timer > 3f)
         {
             stateMachine.RandomState();
+        }
+
+        if (characterAgent.CheckPlayerInfront())
+        {
+            stateMachine.SetPlayerInfront();
         }
     }
 
@@ -212,16 +230,14 @@ public class PlayFlute : Istate
         {
             stateMachine.RandomState();
         }
-
         if (characterAgent.CheckPlayerInfront() && !stateMachine.alreadyGreetPlayer)
         {
             stateMachine.SetPlayerInfront();
         }
-        else if(characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer)
+        else if (characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer)
         {
             stateMachine.ChangeState(new Distrubed());
         }
-
     }
 
     public void Exit()
@@ -243,15 +259,29 @@ public class PlayerInfront : Istate
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
 
-        characterAgent.PlayerInfrontAnimation();
-        characterAgent.InfrontPlayerSound();
+        int randomAnimation = Random.Range(0, 2);
+
+        if (randomAnimation == 0)
+        {
+            characterAgent.PlayerInfrontAnimation();
+        }
+        else if (randomAnimation == 1)
+        {
+            characterAgent.WhatsYouUpToAnimation();
+            characterAgent.InfrontPlayerSound();
+        }
     }
 
     public void Execute()
     {
-        if(!characterAgent.CheckPlayerInfront())
+        if (!characterAgent.CheckPlayerInfront())
         {
-            stateMachine.RandomState();
+            stateMachine.delayTimer += Time.deltaTime;
+            if (stateMachine.delayTimer > 2f)
+            {
+                stateMachine.delayTimer = 0f;
+                stateMachine.RandomState();
+            }
         }
     }
 
@@ -281,7 +311,12 @@ public class GreetPlayer : Istate
     {
         if (!characterAgent.CheckPlayerInfront())
         {
-            stateMachine.RandomState();
+            stateMachine.delayTimer += Time.deltaTime;
+            if (stateMachine.delayTimer > 2f)
+            {
+                stateMachine.delayTimer = 0f;
+                stateMachine.RandomState();
+            }
         }
     }
 
@@ -304,13 +339,19 @@ public class Distrubed : Istate
         this.characterAgent = characterAgent;
 
         characterAgent.DisturbedByPlayer();
+        characterAgent.DisturbedAnimation();
     }
 
     public void Execute()
     {
         if (!characterAgent.CheckPlayerInfront())
         {
-            stateMachine.RandomState();
+            stateMachine.delayTimer += Time.deltaTime;
+            if (stateMachine.delayTimer > 2f)
+            {
+                stateMachine.delayTimer = 0f;
+                stateMachine.RandomState();
+            }
         }
     }
 

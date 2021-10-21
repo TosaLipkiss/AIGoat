@@ -83,7 +83,6 @@ public class CharacterAgent : MonoBehaviour
     {
         StopWalking();
         PlayerInfrontWhileFluteSound();
-        PlayerInfrontAnimation(); //ändra annan animation
         playFlute.SetActive(false);
         flute.SetActive(true);
     }
@@ -203,9 +202,19 @@ public class CharacterAgent : MonoBehaviour
         goatAnimator.SetTrigger("PlayerInfrontIdle");
     }
 
+    public void WhatsYouUpToAnimation()
+    {
+        goatAnimator.SetTrigger("WhatsUp");
+    }
+
     public void GreetPlayerAnimation()
     {
         goatAnimator.SetTrigger("GreetPlayer");
+    }
+
+    public void DisturbedAnimation()
+    {
+        goatAnimator.SetTrigger("Disturbed");
     }
 
     #endregion
