@@ -147,8 +147,25 @@ public class Idle : Istate
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
 
-        characterAgent.IdleSound();
-        characterAgent.IdleAnimation();
+        int randomAnimation = Random.Range(0, 8);
+
+        if(randomAnimation <= 2)
+        {
+            characterAgent.IdleAnimation();
+        }
+        else if (randomAnimation == 3)
+        {
+            characterAgent.IdleGaspAnimation();
+            characterAgent.IdleGaspSound();
+        }
+        else if(randomAnimation >= 4 || randomAnimation <= 6)
+        {
+            characterAgent.IdleLookAroundpAnimation();
+        }
+        else if(randomAnimation == 7)
+        {
+            characterAgent.IdleHmmAnimation();
+        }
     }
 
     public void Execute()

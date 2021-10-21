@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -112,29 +110,22 @@ public class CharacterAgent : MonoBehaviour
         soundSingleton.OtherSound(fluteSound);
     }
 
-    public void IdleSound()
+    public void IdleGaspSound()
     {
-        int randomIdleSound = Random.Range(0, 2);
 
-        if (randomIdleSound == 0)
-        {
-            soundSingleton.GoatSound(gasp);
-        }
-        else if (randomIdleSound == 1)
-        {
-            soundSingleton.GoatSound(gasp);
-        }
+        soundSingleton.GoatSound(gasp);
+
     }
 
     public void InfrontPlayerSound()
     {
         int randomInfrontPlayerSound = Random.Range(0, 2);
 
-        if(randomInfrontPlayerSound == 0)
+        if (randomInfrontPlayerSound == 0)
         {
             soundSingleton.GoatSound(whatYouUpToSound);
         }
-        else if(randomInfrontPlayerSound == 1)
+        else if (randomInfrontPlayerSound == 1)
         {
             soundSingleton.GoatSound(whatYouUpToSound);
         }
@@ -185,6 +176,21 @@ public class CharacterAgent : MonoBehaviour
     public void IdleAnimation()
     {
         goatAnimator.SetTrigger("Idle");
+    }
+
+    public void IdleGaspAnimation()
+    {
+        goatAnimator.SetTrigger("IdleGasp");
+    }
+
+    public void IdleLookAroundpAnimation()
+    {
+        goatAnimator.SetTrigger("IdleLookAround");
+    }
+
+    public void IdleHmmAnimation()
+    {
+        goatAnimator.SetTrigger("IdleHmm");
     }
 
     public void PlayFluteAnimation()
