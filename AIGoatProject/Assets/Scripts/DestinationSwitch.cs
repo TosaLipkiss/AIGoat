@@ -12,6 +12,7 @@ public class DestinationSwitch : MonoBehaviour
     public GameObject randomDestination;
     public GameObject birdHouseDestination;
 
+
     public bool isBirdHouseDestination = false;
 
 
@@ -35,15 +36,6 @@ public class DestinationSwitch : MonoBehaviour
 
         positionX = Random.Range(-5, 18);
         positionZ = Random.Range(-13, 14);
-
-        /*       if(isBirdHouseDestination == true)
-                {
-                    randomDestination.transform.position = new Vector3(birdHouseDestination.transform.position.x, 0, birdHouseDestination.transform.position.z);
-                }
-                else
-                {
-                    randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
-                }*/
 
         randomDestination.transform.position = new Vector3(positionX, 0, positionZ);
     }

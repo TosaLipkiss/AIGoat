@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.24
+    agentRadius: 0.2
     agentHeight: 0.84
     agentSlope: 17.2
     agentClimb: 0.1
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.08
+    minRegionArea: 5
+    manualCellSize: 1
+    cellSize: 0.04
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 19428555}
   - component: {fileID: 19428558}
   - component: {fileID: 19428559}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirstPersonPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -875,8 +875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ed2b3464038db4a8b9356d31dd3c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goatSpeaking: {fileID: 1557367992}
-  other: {fileID: 1890395331}
+  goatSound: {fileID: 1557367992}
+  otherGoatSound: {fileID: 1890395331}
 --- !u!4 &297918895
 Transform:
   m_ObjectHideFlags: 0
@@ -2329,7 +2329,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -3305,7 +3305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4017359017749981955, guid: fb539cc724255d2498155cd1c8c64d87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4017359017749981955, guid: fb539cc724255d2498155cd1c8c64d87, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3447,10 +3447,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea30b1f10cb0fb45873250fc647ce29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1998680478}
+  goatAnimator: {fileID: 1409632132}
   stateIsWalking: 0
-  walkingSound: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
   goatsAgent: {fileID: 1409632134}
+  destination: {fileID: 1998680478}
+  playFlute: {fileID: 907426071}
+  flute: {fileID: 1456266940}
+  goatAudio: {fileID: 1557367992}
+  goatOtherAudio: {fileID: 1890395331}
+  heyThereMate: {fileID: 8300000, guid: cf6d72f3496d57949b3a2480b6823dfa, type: 3}
+  whatYouUpToSound: {fileID: 8300000, guid: 5ee8011e842aaa348b190091f5941eb3, type: 3}
+  canYouStopItPlease: {fileID: 8300000, guid: 00c5a400fb90adc45a12420d9f287edd, type: 3}
+  gasp: {fileID: 8300000, guid: 0e3c7ca157298c646aa787a80af52057, type: 3}
+  walkSteps: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
+  fluteSound: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
+  soundSingleton: {fileID: 297918894}
 --- !u!195 &1409632134
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3516,118 +3527,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1409632131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a619359d17e2d404ab0d3a6912c6e680, type: 3}
+  m_Script: {fileID: 11500000, guid: c2525c6764f98254398d937c4ad83906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playFlute: {fileID: 907426071}
-  flute: {fileID: 1456266940}
   rayObject: {fileID: 1251281987}
-  birdHouse: {fileID: 201851962}
-  goatNavmesh: {fileID: 1409632134}
-  rb: {fileID: 1409632135}
-  greetingsSound: {fileID: 8300000, guid: cf6d72f3496d57949b3a2480b6823dfa, type: 3}
-  whatYouUpToSound: {fileID: 8300000, guid: 71e2ba2b61408494db401ae5b5734164, type: 3}
-  walkingSound: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
-  fluteSound: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
-  soundSingleton: {fileID: 297918894}
-  characterAgent: {fileID: 1409632133}
-  destinationSwitch: {fileID: 1998680483}
---- !u!82 &1409632139
-AudioSource:
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  rayThickness: 0.35
+  rayLenght: 4
+--- !u!114 &1409632140
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409632131}
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0cb1922f4237bce498a26ef0a9fdbed5, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c5b88eb174000479f7aea71ee40907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  greetingsSound: {fileID: 8300000, guid: cf6d72f3496d57949b3a2480b6823dfa, type: 3}
+  whatYouUpToSound: {fileID: 8300000, guid: 5ee8011e842aaa348b190091f5941eb3, type: 3}
+  gasp: {fileID: 8300000, guid: 0e3c7ca157298c646aa787a80af52057, type: 3}
+  walkSteps: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
+  flute: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
+  rayObject: {fileID: 1251281987}
+  alreadyGreetPlayer: 0
 --- !u!1 &1420866261
 GameObject:
   m_ObjectHideFlags: 0
@@ -5084,7 +5011,7 @@ GameObject:
   - component: {fileID: 1871791881}
   - component: {fileID: 1871791883}
   - component: {fileID: 1871791882}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5185,7 +5112,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

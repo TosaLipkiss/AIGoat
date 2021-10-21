@@ -164,8 +164,10 @@ public class AIStateManager : MonoBehaviour
         characterAgent.stateIsWalking = false;
         isInteractingWithPlayer = false;
 
-        soundSingleton.other.Stop();
+        soundSingleton.otherGoatSound.Stop();
 
+
+        //Ändra trigger i nya statemachine använd i "enter"
         goatAnimator.SetBool("PlayerIdle", false);
         goatAnimator.SetBool("Idle", false);
         goatAnimator.SetBool("Walk", false);
@@ -205,7 +207,7 @@ public class AIStateManager : MonoBehaviour
         {
             if(alreadyGreeting == false)
             {
-                FindObjectOfType<SoundSingleton>().Goat(greetingsSound);
+                FindObjectOfType<SoundSingleton>().GoatSound(greetingsSound);
                 goatAnimator.SetTrigger("GreetPlayer");
                 alreadyGreeting = true;
             }

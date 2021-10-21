@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class SoundSingleton : MonoBehaviour
 {
-    public AudioSource goatSpeaking;
-    public AudioSource other;
+    public AudioSource goatSound;
+    public AudioSource otherGoatSound;
 
-    public void Goat(AudioClip clip)
+    public void GoatSound(AudioClip clip)
     {
-        goatSpeaking.clip = clip;
-        goatSpeaking.Play();
+        goatSound.clip = clip;
+        goatSound.Play();
+    }
+
+    public void TurnOfGoatSound()
+    {
+        goatSound.Stop();
     }
 
     public void OtherSound(AudioClip clip)
     {
-        goatSpeaking.clip = clip;
-        goatSpeaking.Play();
+        otherGoatSound.clip = clip;
+        otherGoatSound.Play();
+    }
+
+    public void TurnOfOtherGoatSound()
+    {
+        otherGoatSound.Stop();
     }
 }
