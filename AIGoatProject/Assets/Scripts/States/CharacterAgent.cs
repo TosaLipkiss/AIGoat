@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class CharacterAgent : MonoBehaviour
 {
+    public GameObject character;
+
     public Animator goatAnimator;
     public bool stateIsWalking;
     public NavMeshAgent goatsAgent;
@@ -10,19 +12,27 @@ public class CharacterAgent : MonoBehaviour
     public GameObject destination;
     public GameObject birdHouseDestination;
 
+    public Vector3 targetRotation;
+
     public GameObject playFlute;
     public GameObject flute;
 
     public AudioSource goatAudio;
     public AudioSource goatOtherAudio;
+    public AudioSource goatOneShotAudio;
 
     public AudioClip heyThereMate;
     public AudioClip whatYouUpToSound;
     public AudioClip canYouStopItPlease;
     public AudioClip gasp;
+    public AudioClip perfect;
 
     public AudioClip walkSteps;
     public AudioClip fluteSound;
+    public AudioClip bag;
+
+    public float voiceTimer;
+    public bool voiceOnCooldown;
 
     public SoundSingleton soundSingleton;
 
@@ -79,7 +89,14 @@ public class CharacterAgent : MonoBehaviour
         goatsAgent.enabled = true;
         goatsAgent.speed = 1.5f;
         destination = birdHouseDestination;
-        goatsAgent.SetDestination(destination.transform.position);//hjälp
+        goatsAgent.SetDestination(destination.transform.position);
+    }
+
+    public void FeedingBirds()
+    {
+        goatsAgent.enabled = false;
+        var singleStep = 1.1f * Time.deltaTime;
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetRotation, singleStep, 0.0f);
     }
 
     public void PlayFlute()
@@ -159,6 +176,17 @@ public class CharacterAgent : MonoBehaviour
         soundSingleton.TurnOfGoatSound();
     }
 
+    public void BagSound()
+    {
+        soundSingleton.OneShotSound(bag);
+    }
+
+    public void PerfectSound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(perfect);
+    }
+
 
     #endregion
 
@@ -224,6 +252,11 @@ public class CharacterAgent : MonoBehaviour
     public void DisturbedAnimation()
     {
         goatAnimator.SetTrigger("Disturbed");
+    }
+
+    public void FeedBirdAnimation()
+    {
+        goatAnimator.SetTrigger("FeedBird");
     }
 
     #endregion

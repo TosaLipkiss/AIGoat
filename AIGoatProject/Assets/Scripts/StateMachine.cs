@@ -33,8 +33,6 @@ public class StateMachine : MonoBehaviour
 
     void Start()
     {
-        BirdHouse.feed += EnterBirdHouseTrigger;  // < ----n�tt fel
-
         characterAgent = GetComponent<CharacterAgent>();
         currentState = new RandowmWalk();
         currentState.Enter(this, characterAgent);
@@ -59,7 +57,7 @@ public class StateMachine : MonoBehaviour
 
     public void RandomState()
     {
-        int randomState = Random.Range(3, 5);
+        int randomState = Random.Range(0, 5);
 
         if (randomState <= 2)
         {
@@ -73,11 +71,6 @@ public class StateMachine : MonoBehaviour
         {
             ChangeState(new PlayFlute());
         }
-    }
-
-    public void EnterBirdHouseTrigger()
-    {
-        ChangeState(new WalkTowardBirdHouse());
     }
 
     public void SetPlayerInfront()
@@ -94,8 +87,6 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-
-    //Pilla på detta
     public void DelayTimer()
     {
         while (delayTimer < 20f)
@@ -107,9 +98,10 @@ public class StateMachine : MonoBehaviour
     }
 }
 
-/// <summary>
-/// ///////STATES
-/// </summary>
+
+/// ///////STATES///////////
+
+#region randomIdlingStates (walk,Idle,Flute)
 public class RandowmWalk : Istate
 {
     StateMachine stateMachine;
@@ -127,8 +119,15 @@ public class RandowmWalk : Istate
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
 
+        BirdHouse.feed += EnterBirdHouseTrigger;
+
         characterAgent.PlayWalkSound();
         characterAgent.WalkAnimation();
+    }
+
+    void EnterBirdHouseTrigger()
+    {
+        stateMachine.ChangeState(new WalkTowardBirdHouse());
     }
 
     public void Execute()
@@ -150,6 +149,7 @@ public class RandowmWalk : Istate
 
     public void Exit()
     {
+        BirdHouse.feed -= EnterBirdHouseTrigger;
         characterAgent.StopOtherGoatSound();
         characterAgent.StopWalking();
     }
@@ -247,7 +247,7 @@ public class PlayFlute : Istate
         {
             stateMachine.ChangeState(new Distrubed());
         }
-        else if(characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer)
+        else if (characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer)
         {
             stateMachine.disturbedCountdown--;
             stateMachine.SetPlayerInfront();
@@ -261,6 +261,9 @@ public class PlayFlute : Istate
     }
 }
 
+#endregion
+
+#region InteractPlayerStates
 public class PlayerInfront : Istate
 {
     StateMachine stateMachine;
@@ -379,7 +382,9 @@ public class Distrubed : Istate
 
     }
 }
+#endregion
 
+#region BirdHouseState
 public class WalkTowardBirdHouse : Istate
 {
     StateMachine stateMachine;
@@ -395,11 +400,16 @@ public class WalkTowardBirdHouse : Istate
 
         characterAgent.PlayWalkSound();
         characterAgent.WalkAnimation();
+
+        characterAgent.ChangeDestinationBirdHouse(); //hjälp
     }
 
     public void Execute()
     {
-        characterAgent.ChangeDestinationBirdHouse(); //hjälp
+        if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.birdHouseDestination.transform.position) < 0.5f)
+        {
+            stateMachine.ChangeState(new FeedingTheBirds());
+        }
     }
 
     public void Exit()
@@ -407,3 +417,47 @@ public class WalkTowardBirdHouse : Istate
 
     }
 }
+
+public class FeedingTheBirds : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    float timer;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        characterAgent.ResetAgent();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.StopOtherGoatSound();
+
+        characterAgent.BagSound();
+        characterAgent.FeedBirdAnimation();
+
+        characterAgent.FeedingBirds(); //hjälp
+    }
+
+    public void Execute()
+    {
+        timer += Time.deltaTime;
+
+        if(timer > 1f && !characterAgent.voiceOnCooldown)
+        {
+            characterAgent.PerfectSound();
+        }
+
+        if (timer > 2.7f)
+        {
+            stateMachine.RandomState();
+        }
+    }
+
+    public void Exit()
+    {
+        characterAgent.voiceOnCooldown = false;
+    }
+}
+#endregion

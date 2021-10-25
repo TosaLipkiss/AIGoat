@@ -24,6 +24,12 @@ public class SoundSingleton : MonoBehaviour
         otherGoatSound.Play();
     }
 
+    public void OneShotSound(AudioClip clip)
+    {
+        goatSound.clip = clip;
+        goatSound.Play();
+    }
+
     public void TurnOfOtherGoatSound()
     {
         otherGoatSound.Stop();
