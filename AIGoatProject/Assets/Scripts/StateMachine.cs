@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public interface Istate
@@ -29,8 +29,12 @@ public class StateMachine : MonoBehaviour
 
     public int disturbedCountdown = 2;
 
+
+
     void Start()
     {
+        BirdHouse.feed += EnterBirdHouseTrigger;  // < ----n�tt fel
+
         characterAgent = GetComponent<CharacterAgent>();
         currentState = new RandowmWalk();
         currentState.Enter(this, characterAgent);
@@ -55,7 +59,7 @@ public class StateMachine : MonoBehaviour
 
     public void RandomState()
     {
-        int randomState = Random.Range(0, 5);
+        int randomState = Random.Range(3, 5);
 
         if (randomState <= 2)
         {
@@ -69,6 +73,11 @@ public class StateMachine : MonoBehaviour
         {
             ChangeState(new PlayFlute());
         }
+    }
+
+    public void EnterBirdHouseTrigger()
+    {
+        ChangeState(new WalkTowardBirdHouse());
     }
 
     public void SetPlayerInfront()
@@ -86,7 +95,7 @@ public class StateMachine : MonoBehaviour
     }
 
 
-    //Pilla p� detta
+    //Pilla på detta
     public void DelayTimer()
     {
         while (delayTimer < 20f)
@@ -234,9 +243,14 @@ public class PlayFlute : Istate
         {
             stateMachine.SetPlayerInfront();
         }
-        else if (characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer)
+        else if (characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer && stateMachine.disturbedCountdown == 0)
         {
             stateMachine.ChangeState(new Distrubed());
+        }
+        else if(characterAgent.CheckPlayerInfront() && stateMachine.alreadyGreetPlayer)
+        {
+            stateMachine.disturbedCountdown--;
+            stateMachine.SetPlayerInfront();
         }
     }
 
@@ -340,6 +354,11 @@ public class Distrubed : Istate
 
         characterAgent.DisturbedByPlayer();
         characterAgent.DisturbedAnimation();
+
+        if (stateMachine.disturbedCountdown == 0)
+        {
+            stateMachine.disturbedCountdown = 2;
+        }
     }
 
     public void Execute()
@@ -353,6 +372,34 @@ public class Distrubed : Istate
                 stateMachine.RandomState();
             }
         }
+    }
+
+    public void Exit()
+    {
+
+    }
+}
+
+public class WalkTowardBirdHouse : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        Debug.Log("Walk towards bird");
+        characterAgent.ResetAgent();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.PlayWalkSound();
+        characterAgent.WalkAnimation();
+    }
+
+    public void Execute()
+    {
+        characterAgent.ChangeDestinationBirdHouse(); //hjälp
     }
 
     public void Exit()

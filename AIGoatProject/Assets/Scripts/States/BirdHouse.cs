@@ -10,6 +10,9 @@ public class BirdHouse : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        feed?.Invoke();
+        if(other.CompareTag("Character"))
+        {
+            feed?.Invoke();
+        }
     }
 }

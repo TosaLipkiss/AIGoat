@@ -656,7 +656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &201851963
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3463,6 +3463,7 @@ MonoBehaviour:
   stateIsWalking: 0
   goatsAgent: {fileID: 1409632134}
   destination: {fileID: 1998680478}
+  birdHouseDestination: {fileID: 559492163}
   playFlute: {fileID: 907426071}
   flute: {fileID: 1456266940}
   goatAudio: {fileID: 1557367992}
@@ -3567,6 +3568,8 @@ MonoBehaviour:
   flute: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
   rayObject: {fileID: 1251281987}
   alreadyGreetPlayer: 0
+  delayTimer: 0
+  disturbedCountdown: 2
 --- !u!1 &1420866261
 GameObject:
   m_ObjectHideFlags: 0

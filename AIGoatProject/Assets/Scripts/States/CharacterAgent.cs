@@ -8,6 +8,7 @@ public class CharacterAgent : MonoBehaviour
     public NavMeshAgent goatsAgent;
 
     public GameObject destination;
+    public GameObject birdHouseDestination;
 
     public GameObject playFlute;
     public GameObject flute;
@@ -71,6 +72,14 @@ public class CharacterAgent : MonoBehaviour
     {
         goatsAgent.SetDestination(transform.position);
         goatsAgent.enabled = false;
+    }
+
+    public void ChangeDestinationBirdHouse()
+    {
+        goatsAgent.enabled = true;
+        goatsAgent.speed = 1.5f;
+        destination = birdHouseDestination;
+        goatsAgent.SetDestination(destination.transform.position);//hjälp
     }
 
     public void PlayFlute()
