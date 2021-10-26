@@ -120,6 +120,7 @@ public class RandowmWalk : Istate
         this.characterAgent = characterAgent;
 
         BirdHouse.feed += EnterBirdHouseTrigger;
+        FindMushrooms.pick += FindClosestMushroom;
 
         characterAgent.PlayWalkSound();
         characterAgent.WalkAnimation();
@@ -128,6 +129,11 @@ public class RandowmWalk : Istate
     void EnterBirdHouseTrigger()
     {
         stateMachine.ChangeState(new WalkTowardBirdHouse());
+    }
+
+    void FindClosestMushroom()
+    {
+        stateMachine.ChangeState(new WalkTowardMushroom());
     }
 
     public void Execute()
@@ -149,7 +155,9 @@ public class RandowmWalk : Istate
 
     public void Exit()
     {
+        FindMushrooms.pick -= FindClosestMushroom;
         BirdHouse.feed -= EnterBirdHouseTrigger;
+
         characterAgent.StopOtherGoatSound();
         characterAgent.StopWalking();
     }
@@ -401,7 +409,7 @@ public class WalkTowardBirdHouse : Istate
         characterAgent.PlayWalkSound();
         characterAgent.WalkAnimation();
 
-        characterAgent.ChangeDestinationBirdHouse(); //hjälp
+        characterAgent.ChangeDestinationBirdHouse();
     }
 
     public void Execute()
@@ -437,7 +445,7 @@ public class FeedingTheBirds : Istate
         characterAgent.BagSound();
         characterAgent.FeedBirdAnimation();
 
-        characterAgent.FeedingBirds(); //hjälp
+        characterAgent.FeedingBirds(); 
     }
 
     public void Execute()
@@ -464,3 +472,36 @@ public class FeedingTheBirds : Istate
     }
 }
 #endregion
+
+public class WalkTowardMushroom : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        Debug.Log("Walk towards mushroom");
+        characterAgent.ResetAgent();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.PlayWalkSound();
+        characterAgent.WalkAnimation();
+
+        characterAgent.ChangeDestinationMushroom();
+    }
+
+    public void Execute()
+    {
+/*        if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.destination.transform.position) < 0.5f)
+        {
+            stateMachine.ChangeState(new FeedingTheBirds());
+        }*/
+    }
+
+    public void Exit()
+    {
+
+    }
+}

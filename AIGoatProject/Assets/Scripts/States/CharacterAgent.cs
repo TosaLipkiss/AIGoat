@@ -9,9 +9,12 @@ public class CharacterAgent : MonoBehaviour
     public bool stateIsWalking;
     public NavMeshAgent goatsAgent;
 
+    public FindMushrooms findMushrooms;
+
     public GameObject randomDestination;
     public GameObject destination;
     public GameObject birdHouseDestination;
+    public GameObject mushroomDestination;
 
     public Transform birdHouseTarget;
     public int damping = 2;
@@ -40,7 +43,6 @@ public class CharacterAgent : MonoBehaviour
     public bool voiceOnCooldown;
 
     public SoundSingleton soundSingleton;
-    public FindMushrooms findMushroom;
 
     RaycastForward raycastForward;
 
@@ -50,7 +52,7 @@ public class CharacterAgent : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         raycastForward = GetComponent<RaycastForward>();
-        findMushroom = GetComponent<FindMushrooms>();
+        findMushrooms = GetComponent<FindMushrooms>();
         goatsAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -107,6 +109,27 @@ public class CharacterAgent : MonoBehaviour
         goatsAgent.SetDestination(destination.transform.position);
     }
 
+
+    //Kolla här
+    public void ChangeDestinationMushroom()
+    {
+        if(findMushrooms.closestMushroom == null)
+        {
+            mushroomDestination = null;
+        }
+        else
+        {
+            mushroomDestination = findMushrooms.closestMushroom;
+            destination = mushroomDestination;
+
+            goatsAgent.SetDestination(destination.transform.position);
+
+            goatsAgent.enabled = true;
+            goatsAgent.speed = 1.5f;
+        }
+    }
+
+
     public void FeedingBirds()
     {
         goatsAgent.enabled = false;
@@ -136,14 +159,6 @@ public class CharacterAgent : MonoBehaviour
     {
         playFlute.SetActive(false);
         flute.SetActive(true);
-    }
-
-    public void ChangeDestinationMushroom()
-    {
-        goatsAgent.enabled = true;
-        goatsAgent.speed = 1.5f;
-        destination = birdHouseDestination;
-        goatsAgent.SetDestination(destination.transform.position);
     }
 
 

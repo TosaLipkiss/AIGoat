@@ -13,7 +13,6 @@ public class BirdHouse : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(stillFeedingBird);
         cooldownTimer -= Time.deltaTime;
 
         if(cooldownTimer <= 0f && !stillFeedingBird)

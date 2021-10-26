@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void PickMushroom();
 public class FindMushrooms : MonoBehaviour
 {
+    public static event PickMushroom pick;
+
     public GameObject closestMushroom;
     public LayerMask mushroomLayer;
 
@@ -36,7 +39,8 @@ public class FindMushrooms : MonoBehaviour
         if(bestHit != null)
         {
             closestMushroom = bestHit.gameObject;
-       //     Debug.Log("closest muchroom: " + closestMushroom.transform.position);
+            pick?.Invoke();
+      //     Debug.Log("closest muchroom: " + closestMushroom.transform.position);
         }
     }
 }
