@@ -36,7 +36,7 @@ public class FindMushrooms : MonoBehaviour
         if(bestHit != null)
         {
             closestMushroom = bestHit.gameObject;
-            Debug.Log("closest muchroom: " + closestMushroom.transform.position);
+       //     Debug.Log("closest muchroom: " + closestMushroom.transform.position);
         }
     }
 }

@@ -444,6 +444,8 @@ public class FeedingTheBirds : Istate
     {
         timer += Time.deltaTime;
 
+        characterAgent.FeedingBirds();
+
         if(timer > 1f && !characterAgent.voiceOnCooldown)
         {
             characterAgent.PerfectSound();
@@ -451,12 +453,13 @@ public class FeedingTheBirds : Istate
 
         if (timer > 2.7f)
         {
-            stateMachine.RandomState();
+            stateMachine.ChangeState(new RandowmWalk());
         }
     }
 
     public void Exit()
     {
+        characterAgent.ResetDestination();
         characterAgent.voiceOnCooldown = false;
     }
 }

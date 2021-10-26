@@ -9,10 +9,15 @@ public class CharacterAgent : MonoBehaviour
     public bool stateIsWalking;
     public NavMeshAgent goatsAgent;
 
+    public GameObject randomDestination;
     public GameObject destination;
     public GameObject birdHouseDestination;
 
-    public Vector3 targetRotation;
+    public Transform birdHouseTarget;
+    public int damping = 2;
+ 
+
+    public Vector3 targetAngles;
 
     public GameObject playFlute;
     public GameObject flute;
@@ -35,6 +40,7 @@ public class CharacterAgent : MonoBehaviour
     public bool voiceOnCooldown;
 
     public SoundSingleton soundSingleton;
+    public FindMushrooms findMushroom;
 
     RaycastForward raycastForward;
 
@@ -44,6 +50,7 @@ public class CharacterAgent : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         raycastForward = GetComponent<RaycastForward>();
+        findMushroom = GetComponent<FindMushrooms>();
         goatsAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -71,6 +78,14 @@ public class CharacterAgent : MonoBehaviour
         ResetAnimationTriggers();
     }
 
+    public void ResetDestination()
+    {
+        goatsAgent.enabled = true;
+        goatsAgent.speed = 1.5f;
+        destination = randomDestination;
+        goatsAgent.SetDestination(destination.transform.position);
+    }
+
     public void WalkAround()
     {
         goatsAgent.enabled = true;
@@ -95,8 +110,12 @@ public class CharacterAgent : MonoBehaviour
     public void FeedingBirds()
     {
         goatsAgent.enabled = false;
-        var singleStep = 1.1f * Time.deltaTime;
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetRotation, singleStep, 0.0f);
+
+        Vector3 lookPosition = birdHouseTarget.position - transform.position;
+        lookPosition.y = 0;
+
+        var rotation = Quaternion.LookRotation(lookPosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
     }
 
     public void PlayFlute()
@@ -117,6 +136,14 @@ public class CharacterAgent : MonoBehaviour
     {
         playFlute.SetActive(false);
         flute.SetActive(true);
+    }
+
+    public void ChangeDestinationMushroom()
+    {
+        goatsAgent.enabled = true;
+        goatsAgent.speed = 1.5f;
+        destination = birdHouseDestination;
+        goatsAgent.SetDestination(destination.transform.position);
     }
 
 

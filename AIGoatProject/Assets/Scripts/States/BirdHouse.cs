@@ -7,27 +7,31 @@ public delegate void FeedBirds();
 public class BirdHouse : MonoBehaviour
 {
     public static event FeedBirds feed;
-    public bool birdHouseOnCooldown = true;
-    float cooldownTimer = 120f;
+    bool birdHouseOnCooldown = false;
+    bool stillFeedingBird = false;
+    float cooldownTimer = 0f;
 
     private void Update()
     {
+        Debug.Log(stillFeedingBird);
         cooldownTimer -= Time.deltaTime;
 
-/*        if(cooldownTimer <= 0f)
+        if(cooldownTimer <= 0f)
         {
             birdHouseOnCooldown = false;
-        }*/
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Character") && birdHouseOnCooldown == false)
         {
-            Debug.Log("Trigger Feed bird");
             feed?.Invoke();
-            cooldownTimer = 120f;
-        //    birdHouseOnCooldown = true;
+
+            cooldownTimer = 10f;
+
+            stillFeedingBird = true;
+            birdHouseOnCooldown = true;
         }
     }
 }
