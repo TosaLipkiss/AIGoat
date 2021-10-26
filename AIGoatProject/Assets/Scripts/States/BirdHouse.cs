@@ -16,7 +16,7 @@ public class BirdHouse : MonoBehaviour
         Debug.Log(stillFeedingBird);
         cooldownTimer -= Time.deltaTime;
 
-        if(cooldownTimer <= 0f)
+        if(cooldownTimer <= 0f && !stillFeedingBird)
         {
             birdHouseOnCooldown = false;
         }
@@ -32,6 +32,14 @@ public class BirdHouse : MonoBehaviour
 
             stillFeedingBird = true;
             birdHouseOnCooldown = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Character"))
+        {
+            stillFeedingBird = false;
         }
     }
 }
