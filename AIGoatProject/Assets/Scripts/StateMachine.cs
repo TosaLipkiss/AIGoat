@@ -473,6 +473,7 @@ public class FeedingTheBirds : Istate
 }
 #endregion
 
+#region MushroomState
 public class WalkTowardMushroom : Istate
 {
     StateMachine stateMachine;
@@ -521,6 +522,8 @@ public class PickUpMushroom : Istate
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
 
+        characterAgent.CheckInventoryStorage();
+
         characterAgent.BagSound();
         characterAgent.FeedBirdAnimation();
     }
@@ -530,11 +533,19 @@ public class PickUpMushroom : Istate
         timer += Time.deltaTime;
 
         characterAgent.AddMushroomInInventory();
+        characterAgent.CheckInventoryStorage();
 
         if (timer > 2.7f)
         {
             stateMachine.ChangeState(new RandowmWalk());
         }
+
+        if(characterAgent.inventory == 1)
+        {
+            Debug.Log("inventory full");
+            stateMachine.ChangeState(new WalkTowardHome());
+        }
+
     }
 
     public void Exit()
@@ -542,3 +553,78 @@ public class PickUpMushroom : Istate
         characterAgent.ResetDestination();
     }
 }
+
+public class WalkTowardHome : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        characterAgent.ResetAgent();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.ChangeDestinationHome();
+
+        Home.emptyPockets += EnterHomeTrigger;
+
+        characterAgent.PlayWalkSound();
+        characterAgent.WalkAnimation();
+    }
+
+    public void Execute()
+    {
+
+    }
+    void EnterHomeTrigger()
+    {
+        stateMachine.ChangeState(new EmptyInventory());
+    }
+
+    public void Exit()
+    {
+        Home.emptyPockets -= EnterHomeTrigger;
+    }
+}
+
+public class EmptyInventory : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    float timer;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+
+        characterAgent.ResetAgent();
+        characterAgent.StopOtherGoatSound();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.BagSound();
+        characterAgent.FeedBirdAnimation();
+    }
+
+    public void Execute()
+    {
+        timer += Time.deltaTime;
+
+        if(timer > 1.5f)
+        {
+            characterAgent.EmptyInventory();
+            stateMachine.ChangeState(new RandowmWalk());
+        }
+    }
+
+
+    public void Exit()
+    {
+        characterAgent.ResetDestination();
+    }
+}
+
+#endregion MushroomState

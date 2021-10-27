@@ -3649,12 +3649,15 @@ MonoBehaviour:
   goatsAgent: {fileID: 1409632134}
   findMushrooms: {fileID: 1409632139}
   aiInventory: {fileID: 1409632141}
+  home: {fileID: 1897340807}
   randomDestination: {fileID: 1998680478}
   destination: {fileID: 1998680478}
   birdHouseDestination: {fileID: 559492163}
   mushroomDestination: {fileID: 0}
+  homeDestination: {fileID: 1897340805}
   birdHouseTarget: {fileID: 1420866262}
   damping: 2
+  inventory: 0
   targetAngles: {x: 0, y: 0, z: 0}
   playFlute: {fileID: 907426071}
   flute: {fileID: 1456266940}
@@ -3758,6 +3761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6345ad1cc491af04cb3205e044fe4962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnMushroom: {fileID: 1771488262}
   aiInventory: {fileID: 1409632141}
   closestMushroom: {fileID: 0}
   mushroomLayer:
@@ -3985,6 +3989,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 4.556, z: -0.28}
   m_TimeToStationary: 0.5
+--- !u!4 &1442077000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4017359017749981955, guid: fb539cc724255d2498155cd1c8c64d87, type: 3}
+  m_PrefabInstance: {fileID: 1337949396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1442363202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7015866797545459592, guid: 24f790b192de3c244bdf01754d9780e3, type: 3}
@@ -5327,6 +5336,9 @@ MonoBehaviour:
   mushroomSpawnPositionPrefab: {fileID: 213406979568572329, guid: 211f4ec4ec913fb4aa9cbe5089a41a46, type: 3}
   mushroomSpawner: {fileID: 1771488261}
   platform: {fileID: 988532677}
+  mushroomSpots: []
+  spawnCount: 10
+  mushroomList: []
 --- !u!4 &1771488263
 Transform:
   m_ObjectHideFlags: 0
@@ -5695,6 +5707,64 @@ Transform:
   m_Father: {fileID: 1409632137}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1897340805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1897340806}
+  - component: {fileID: 1897340808}
+  - component: {fileID: 1897340807}
+  m_Layer: 0
+  m_Name: HouseTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1897340806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897340805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.83, y: 1.257, z: -0.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1442077000}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1897340807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897340805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7db1887221421a41906b77d0a075269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryFull: 0
+--- !u!65 &1897340808
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897340805}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.77, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1905137206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3825906485743408000, guid: 69e99013b97504241809ebe0f94169b4, type: 3}

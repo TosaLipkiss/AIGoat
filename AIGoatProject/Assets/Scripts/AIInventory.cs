@@ -13,6 +13,7 @@ public class AIInventory : MonoBehaviour
         {
             collectedMushrooms++;
             newMushroomAdded = false;
+            Debug.Log("inventory: " + collectedMushrooms);
         }
     }
 }

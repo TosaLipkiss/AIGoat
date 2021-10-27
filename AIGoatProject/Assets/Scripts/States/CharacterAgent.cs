@@ -11,14 +11,18 @@ public class CharacterAgent : MonoBehaviour
 
     public FindMushrooms findMushrooms;
     public AIInventory aiInventory;
+    public Home home;
 
     public GameObject randomDestination;
     public GameObject destination;
     public GameObject birdHouseDestination;
     public GameObject mushroomDestination;
+    public GameObject homeDestination;
 
     public Transform birdHouseTarget;
     public int damping = 2;
+
+    public int inventory;
 
     float timer;
     bool timerFulfilled = false;
@@ -70,6 +74,8 @@ public class CharacterAgent : MonoBehaviour
         return raycastForward.RaycastPlayer();
     }
 
+    #region Resets
+
     public void ResetAgent()
     {
         goatsAgent.enabled = false;
@@ -93,6 +99,10 @@ public class CharacterAgent : MonoBehaviour
         goatsAgent.SetDestination(destination.transform.position);
     }
 
+    #endregion Resets
+
+    #region Walking
+
     public void WalkAround()
     {
         goatsAgent.enabled = true;
@@ -105,6 +115,10 @@ public class CharacterAgent : MonoBehaviour
         goatsAgent.SetDestination(transform.position);
         goatsAgent.enabled = false;
     }
+
+    #endregion Walking
+
+    #region ChangeDestination
 
     public void ChangeDestinationBirdHouse()
     {
@@ -133,7 +147,26 @@ public class CharacterAgent : MonoBehaviour
         }
     }
 
+    public void ChangeDestinationHome()
+    {
+        if (findMushrooms.closestMushroom == null)
+        {
+            mushroomDestination = null;
+        }
+        else
+        {
+            destination = homeDestination;
 
+            goatsAgent.SetDestination(destination.transform.position);
+
+            goatsAgent.enabled = true;
+            goatsAgent.speed = 1.5f;
+        }
+    }
+
+    #endregion ChangeDestination
+
+    #region FeedBird
     public void FeedingBirds()
     {
         goatsAgent.enabled = false;
@@ -144,7 +177,9 @@ public class CharacterAgent : MonoBehaviour
         var rotation = Quaternion.LookRotation(lookPosition);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
     }
+    #endregion FeedBird
 
+    #region Flute
     public void PlayFlute()
     {
         playFlute.SetActive(true);
@@ -165,6 +200,9 @@ public class CharacterAgent : MonoBehaviour
         flute.SetActive(true);
     }
 
+    #endregion Flute
+
+    #region Inventory
     public void AddMushroomInInventory()
     {
         timer += Time.deltaTime;
@@ -177,7 +215,24 @@ public class CharacterAgent : MonoBehaviour
         }
     }
 
+    public void CheckInventoryStorage()
+    {
+        inventory = aiInventory.collectedMushrooms;
 
+        if(inventory == 1)
+        {
+            home.inventoryFull = true;
+        }
+    }
+
+    public void EmptyInventory()
+    {
+        aiInventory.collectedMushrooms = 0;
+        inventory = 0;
+        home.inventoryFull = false;
+    }
+
+    #endregion Inventory
 
     #region Sound
     /// <summary>
