@@ -480,7 +480,6 @@ public class WalkTowardMushroom : Istate
 
     public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
     {
-        Debug.Log("Walk towards mushroom");
         characterAgent.ResetAgent();
 
         this.stateMachine = stateMachine;
@@ -496,12 +495,50 @@ public class WalkTowardMushroom : Istate
     {
         if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.destination.transform.position) < 0.5f)
         {
-            stateMachine.ChangeState(new FeedingTheBirds());
+            stateMachine.ChangeState(new PickUpMushroom());
         }
     }
 
     public void Exit()
     {
 
+    }
+}
+
+
+public class PickUpMushroom : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    float timer;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        characterAgent.ResetAgent();
+        characterAgent.StopOtherGoatSound();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.BagSound();
+        characterAgent.FeedBirdAnimation();
+    }
+
+    public void Execute()
+    {
+        timer += Time.deltaTime;
+
+        characterAgent.AddMushroomInInventory();
+
+        if (timer > 2.7f)
+        {
+            stateMachine.ChangeState(new RandowmWalk());
+        }
+    }
+
+    public void Exit()
+    {
+        characterAgent.ResetDestination();
     }
 }

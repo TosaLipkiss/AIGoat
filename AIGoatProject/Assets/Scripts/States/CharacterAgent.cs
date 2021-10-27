@@ -10,6 +10,7 @@ public class CharacterAgent : MonoBehaviour
     public NavMeshAgent goatsAgent;
 
     public FindMushrooms findMushrooms;
+    public AIInventory aiInventory;
 
     public GameObject randomDestination;
     public GameObject destination;
@@ -18,7 +19,9 @@ public class CharacterAgent : MonoBehaviour
 
     public Transform birdHouseTarget;
     public int damping = 2;
- 
+
+    float timer;
+    bool timerFulfilled = false;
 
     public Vector3 targetAngles;
 
@@ -77,6 +80,8 @@ public class CharacterAgent : MonoBehaviour
         rb.useGravity = false;
         goatsAgent.enabled = true;
 
+        timerFulfilled = false;
+        timer = 0f;
         ResetAnimationTriggers();
     }
 
@@ -110,7 +115,6 @@ public class CharacterAgent : MonoBehaviour
     }
 
 
-    //Kolla här
     public void ChangeDestinationMushroom()
     {
         if(findMushrooms.closestMushroom == null)
@@ -159,6 +163,18 @@ public class CharacterAgent : MonoBehaviour
     {
         playFlute.SetActive(false);
         flute.SetActive(true);
+    }
+
+    public void AddMushroomInInventory()
+    {
+        timer += Time.deltaTime;
+
+        if(timer > 1.4f && !timerFulfilled)
+        {
+            findMushrooms.DestroyClosestMushroom();
+            aiInventory.newMushroomAdded = true;
+            timerFulfilled = true;
+        }
     }
 
 
