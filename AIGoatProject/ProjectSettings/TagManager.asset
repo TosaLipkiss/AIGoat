@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Destination
   - Character
+  - MushroomSpot
   layers:
   - Default
   - TransparentFX

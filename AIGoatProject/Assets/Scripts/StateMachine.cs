@@ -494,10 +494,10 @@ public class WalkTowardMushroom : Istate
 
     public void Execute()
     {
-/*        if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.destination.transform.position) < 0.5f)
+        if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.destination.transform.position) < 0.5f)
         {
             stateMachine.ChangeState(new FeedingTheBirds());
-        }*/
+        }
     }
 
     public void Exit()
