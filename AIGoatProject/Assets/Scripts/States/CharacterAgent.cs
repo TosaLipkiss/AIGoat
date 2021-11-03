@@ -20,17 +20,22 @@ public class CharacterAgent : MonoBehaviour
     public GameObject homeDestination;
 
     public Transform birdHouseTarget;
+    public Transform chestTarget;
     public int damping = 2;
+
 
     public int inventory;
 
     float timer;
-    bool timerFulfilled = false;
+    public bool timerFulfilled = false;
 
     public Vector3 targetAngles;
 
     public GameObject playFlute;
     public GameObject flute;
+
+    public GameObject mushroomInHand;
+    public GameObject mushroomStackInHand;
 
     public AudioSource goatAudio;
     public AudioSource goatOtherAudio;
@@ -41,6 +46,8 @@ public class CharacterAgent : MonoBehaviour
     public AudioClip canYouStopItPlease;
     public AudioClip gasp;
     public AudioClip perfect;
+    public AudioClip youAreTall;
+    public AudioClip really;
 
     public AudioClip walkSteps;
     public AudioClip fluteSound;
@@ -131,7 +138,7 @@ public class CharacterAgent : MonoBehaviour
 
     public void ChangeDestinationMushroom()
     {
-        if(findMushrooms.closestMushroom == null)
+        if (findMushrooms.closestMushroom == null)
         {
             mushroomDestination = null;
         }
@@ -203,12 +210,34 @@ public class CharacterAgent : MonoBehaviour
     #endregion Flute
 
     #region Inventory
+
+    public void PutMushroomInBag()
+    {
+        mushroomInHand.SetActive(true);
+    }
+
+    public void DisableMushroomInHand()
+    {
+        mushroomInHand.SetActive(false);
+    }
+
+    public void MushroomStackInHand()
+    {
+        mushroomStackInHand.SetActive(true);
+    }
+
+    public void DisableMushroomStackInHand()
+    {
+        mushroomStackInHand.SetActive(false);
+    }
+
     public void AddMushroomInInventory()
     {
         timer += Time.deltaTime;
 
-        if(timer > 1.4f && !timerFulfilled)
+        if (timer > 1.4f && !timerFulfilled)
         {
+            mushroomInHand.SetActive(false);
             findMushrooms.DestroyClosestMushroom();
             aiInventory.newMushroomAdded = true;
             timerFulfilled = true;
@@ -219,7 +248,7 @@ public class CharacterAgent : MonoBehaviour
     {
         inventory = aiInventory.collectedMushrooms;
 
-        if(inventory == 1)
+        if (inventory == 1)
         {
             home.inventoryFull = true;
         }
@@ -230,6 +259,17 @@ public class CharacterAgent : MonoBehaviour
         aiInventory.collectedMushrooms = 0;
         inventory = 0;
         home.inventoryFull = false;
+    }
+
+    public void FaceTowardChest()
+    {
+        goatsAgent.enabled = false;
+
+        Vector3 lookPosition = chestTarget.position - transform.position;
+        lookPosition.y = 0;
+
+        var rotation = Quaternion.LookRotation(lookPosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
     }
 
     #endregion Inventory
@@ -271,7 +311,16 @@ public class CharacterAgent : MonoBehaviour
 
     public void PlayerInfrontWhileFluteSound()
     {
-        soundSingleton.GoatSound(canYouStopItPlease);
+        int randomSound = Random.Range(0, 2);
+
+        if (randomSound == 0)
+        {
+            soundSingleton.GoatSound(canYouStopItPlease);
+        }
+        else if (randomSound == 1)
+        {
+            soundSingleton.GoatSound(canYouStopItPlease);
+        }
     }
 
     public void GreetPlayerSound()
@@ -299,6 +348,19 @@ public class CharacterAgent : MonoBehaviour
         voiceOnCooldown = true;
         soundSingleton.GoatSound(perfect);
     }
+
+    public void YouAreTallSound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(youAreTall);
+    }
+
+    public void ReallySound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(really);
+    }
+
 
 
     #endregion
@@ -354,7 +416,16 @@ public class CharacterAgent : MonoBehaviour
 
     public void WhatsYouUpToAnimation()
     {
-        goatAnimator.SetTrigger("WhatsUp");
+        int randomAnimation = Random.Range(0, 2);
+
+        if (randomAnimation == 0)
+        {
+            goatAnimator.SetTrigger("WhatsUp");
+        }
+        else if (randomAnimation == 1)
+        {
+            goatAnimator.SetTrigger("YouAreTall");
+        }
     }
 
     public void GreetPlayerAnimation()
@@ -364,12 +435,31 @@ public class CharacterAgent : MonoBehaviour
 
     public void DisturbedAnimation()
     {
+        int randomAnimation = Random.Range(0, 2);
+
+        if(randomAnimation == 0)
+        {
         goatAnimator.SetTrigger("Disturbed");
+        }
+        else if(randomAnimation == 1)
+        {
+            goatAnimator.SetTrigger("DisturbedReally");
+        }
     }
 
     public void FeedBirdAnimation()
     {
         goatAnimator.SetTrigger("FeedBird");
+    }
+
+    public void EmptyPocketsAnimation()
+    {
+        goatAnimator.SetTrigger("EmptyPockets");
+    }
+
+    public void PickMushroomAnimation()
+    {
+        goatAnimator.SetTrigger("PickMushroom");
     }
 
     #endregion

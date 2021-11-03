@@ -513,6 +513,7 @@ public class PickUpMushroom : Istate
     CharacterAgent characterAgent;
 
     float timer;
+    bool inventoryIsFull = false;
 
     public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
     {
@@ -525,7 +526,7 @@ public class PickUpMushroom : Istate
         characterAgent.CheckInventoryStorage();
 
         characterAgent.BagSound();
-        characterAgent.FeedBirdAnimation();
+        characterAgent.PickMushroomAnimation();
     }
 
     public void Execute()
@@ -535,21 +536,37 @@ public class PickUpMushroom : Istate
         characterAgent.AddMushroomInInventory();
         characterAgent.CheckInventoryStorage();
 
-        if (timer > 2.7f)
+        if(timer > 1.5f)
+        {
+            characterAgent.PutMushroomInBag();
+        }
+
+        if (timer > 3.5f)
+        {
+            characterAgent.DisableMushroomInHand();
+        }
+
+        if (!inventoryIsFull && timer > 4f)
         {
             stateMachine.ChangeState(new RandowmWalk());
         }
 
         if(characterAgent.inventory == 1)
         {
-            Debug.Log("inventory full");
-            stateMachine.ChangeState(new WalkTowardHome());
+            inventoryIsFull = true;
+
+            if(inventoryIsFull && timer > 4f)
+            {
+                Debug.Log("inventory full");
+                stateMachine.ChangeState(new WalkTowardHome());
+            }
         }
 
     }
 
     public void Exit()
     {
+        inventoryIsFull = false;
         characterAgent.ResetDestination();
     }
 }
@@ -596,6 +613,8 @@ public class EmptyInventory : Istate
 
     float timer;
 
+    bool mushroomsIsInHands = false;
+
     public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
     {
 
@@ -606,14 +625,27 @@ public class EmptyInventory : Istate
         this.characterAgent = characterAgent;
 
         characterAgent.BagSound();
-        characterAgent.FeedBirdAnimation();
+        characterAgent.EmptyPocketsAnimation();
     }
 
     public void Execute()
     {
         timer += Time.deltaTime;
 
-        if(timer > 1.5f)
+        characterAgent.FaceTowardChest();
+
+        if (timer > 1f && !mushroomsIsInHands)
+        {
+            characterAgent.MushroomStackInHand();
+            mushroomsIsInHands = true;
+        }
+
+        else if(timer > 2.8f)
+        {
+            characterAgent.DisableMushroomStackInHand();
+        }
+
+        if (timer > 4f)
         {
             characterAgent.EmptyInventory();
             stateMachine.ChangeState(new RandowmWalk());
@@ -623,6 +655,7 @@ public class EmptyInventory : Istate
 
     public void Exit()
     {
+        characterAgent.timerFulfilled = false;
         characterAgent.ResetDestination();
     }
 }
