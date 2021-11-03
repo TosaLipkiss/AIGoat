@@ -284,7 +284,7 @@ public class PlayerInfront : Istate
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
 
-        int randomAnimation = Random.Range(0, 2);
+        int randomAnimation = Random.Range(0, 3);
 
         if (randomAnimation == 0)
         {
@@ -293,7 +293,12 @@ public class PlayerInfront : Istate
         else if (randomAnimation == 1)
         {
             characterAgent.WhatsYouUpToAnimation();
-            characterAgent.InfrontPlayerSound();
+            characterAgent.WhatYouUpToSound();
+        }
+        else if(randomAnimation == 2)
+        {
+            characterAgent.YouAreTallAnimation();
+            characterAgent.YouAreTallSound();
         }
     }
 
@@ -363,8 +368,18 @@ public class Distrubed : Istate
         this.stateMachine = stateMachine;
         this.characterAgent = characterAgent;
 
-        characterAgent.DisturbedByPlayer();
-        characterAgent.DisturbedAnimation();
+        int randomAnimation = Random.Range(0, 2);
+
+        if (randomAnimation == 0)
+        {
+            characterAgent.DisturbedAnimation();
+            characterAgent.DisturbedSound();
+        }
+        else if (randomAnimation == 1)
+        {
+            characterAgent.DisturbedReallyAnimation();
+            characterAgent.DisturbedReallySound();
+        }
 
         if (stateMachine.disturbedCountdown == 0)
         {
@@ -551,7 +566,7 @@ public class PickUpMushroom : Istate
             stateMachine.ChangeState(new RandowmWalk());
         }
 
-        if(characterAgent.inventory == 1)
+        if(characterAgent.inventory == 5)  //ändra här och en till plats för att ändra maxantal
         {
             inventoryIsFull = true;
 

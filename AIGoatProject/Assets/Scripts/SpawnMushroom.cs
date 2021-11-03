@@ -31,7 +31,7 @@ public class SpawnMushroom : MonoBehaviour
 
             newMushroomSpot.SetActive(false);
 
-            ActivateMushroom();
+        //    ActivateMushroom();
         }
     }
 
@@ -58,15 +58,6 @@ public class SpawnMushroom : MonoBehaviour
             }
         }
     }
-
-    /*                Vector3 spawnPosition = NavMeshUtil.GetRandomPoint(platform.transform.position, 20f);
-
-var newMushroomSpot = Instantiate(mushroomSpawnPositionPrefab, spawnPosition, Quaternion.identity);
-newMushroomSpot.transform.parent = mushroomSpawner.transform;
-
-mushroomSpots = GameObject.FindGameObjectsWithTag("MushroomSpot");
-
-spawnTimer = 0f;*/
 
     // Get Random Point on a Navmesh surface
     public static class NavMeshUtil

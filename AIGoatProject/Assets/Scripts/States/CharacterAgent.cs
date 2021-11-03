@@ -196,7 +196,7 @@ public class CharacterAgent : MonoBehaviour
     public void DisturbedByPlayer()
     {
         StopWalking();
-        PlayerInfrontWhileFluteSound();
+        DisturbedSound();
         playFlute.SetActive(false);
         flute.SetActive(true);
     }
@@ -248,7 +248,7 @@ public class CharacterAgent : MonoBehaviour
     {
         inventory = aiInventory.collectedMushrooms;
 
-        if (inventory == 1)
+        if (inventory == 5)
         {
             home.inventoryFull = true;
         }
@@ -295,32 +295,28 @@ public class CharacterAgent : MonoBehaviour
 
     }
 
-    public void InfrontPlayerSound()
+    public void WhatYouUpToSound()
     {
-        int randomInfrontPlayerSound = Random.Range(0, 2);
-
-        if (randomInfrontPlayerSound == 0)
-        {
-            soundSingleton.GoatSound(whatYouUpToSound);
-        }
-        else if (randomInfrontPlayerSound == 1)
-        {
-            soundSingleton.GoatSound(whatYouUpToSound);
-        }
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(whatYouUpToSound);
     }
 
-    public void PlayerInfrontWhileFluteSound()
+    public void YouAreTallSound()
     {
-        int randomSound = Random.Range(0, 2);
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(youAreTall);
+    }
 
-        if (randomSound == 0)
-        {
-            soundSingleton.GoatSound(canYouStopItPlease);
-        }
-        else if (randomSound == 1)
-        {
-            soundSingleton.GoatSound(canYouStopItPlease);
-        }
+    public void DisturbedSound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(canYouStopItPlease);
+    }
+
+    public void DisturbedReallySound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(really);
     }
 
     public void GreetPlayerSound()
@@ -347,18 +343,6 @@ public class CharacterAgent : MonoBehaviour
     {
         voiceOnCooldown = true;
         soundSingleton.GoatSound(perfect);
-    }
-
-    public void YouAreTallSound()
-    {
-        voiceOnCooldown = true;
-        soundSingleton.GoatSound(youAreTall);
-    }
-
-    public void ReallySound()
-    {
-        voiceOnCooldown = true;
-        soundSingleton.GoatSound(really);
     }
 
 
@@ -416,16 +400,12 @@ public class CharacterAgent : MonoBehaviour
 
     public void WhatsYouUpToAnimation()
     {
-        int randomAnimation = Random.Range(0, 2);
+        goatAnimator.SetTrigger("WhatsUp");
+    }
 
-        if (randomAnimation == 0)
-        {
-            goatAnimator.SetTrigger("WhatsUp");
-        }
-        else if (randomAnimation == 1)
-        {
-            goatAnimator.SetTrigger("YouAreTall");
-        }
+    public void YouAreTallAnimation()
+    {
+        goatAnimator.SetTrigger("YouAreTall");
     }
 
     public void GreetPlayerAnimation()
@@ -435,16 +415,12 @@ public class CharacterAgent : MonoBehaviour
 
     public void DisturbedAnimation()
     {
-        int randomAnimation = Random.Range(0, 2);
-
-        if(randomAnimation == 0)
-        {
         goatAnimator.SetTrigger("Disturbed");
-        }
-        else if(randomAnimation == 1)
-        {
-            goatAnimator.SetTrigger("DisturbedReally");
-        }
+    }
+
+    public void DisturbedReallyAnimation()
+    {
+        goatAnimator.SetTrigger("DisturbedReally");
     }
 
     public void FeedBirdAnimation()
