@@ -34,7 +34,7 @@ public class StateMachine : MonoBehaviour
     void Start()
     {
         characterAgent = GetComponent<CharacterAgent>();
-        currentState = new RandowmWalk();
+        currentState = new RandomWalk();
         currentState.Enter(this, characterAgent);
     }
 
@@ -61,7 +61,7 @@ public class StateMachine : MonoBehaviour
 
         if (randomState <= 2)
         {
-            ChangeState(new RandowmWalk());
+            ChangeState(new RandomWalk());
         }
         else if (randomState == 3)
         {
@@ -102,7 +102,7 @@ public class StateMachine : MonoBehaviour
 /// ///////STATES///////////
 
 #region randomIdlingStates (walk,Idle,Flute)
-public class RandowmWalk : Istate
+public class RandomWalk : Istate
 {
     StateMachine stateMachine;
     CharacterAgent characterAgent;
@@ -121,6 +121,7 @@ public class RandowmWalk : Istate
 
         BirdHouse.feed += EnterBirdHouseTrigger;
         FindMushrooms.pick += FindClosestMushroom;
+        NeighbourInteraction.interactNeigbour += EnterNeighbourTrigger;
 
         characterAgent.PlayWalkSound();
         characterAgent.WalkAnimation();
@@ -134,6 +135,11 @@ public class RandowmWalk : Istate
     void FindClosestMushroom()
     {
         stateMachine.ChangeState(new WalkTowardMushroom());
+    }
+
+    void EnterNeighbourTrigger()
+    {
+        stateMachine.ChangeState(new WalkTowardFarmer());
     }
 
     public void Execute()
@@ -157,6 +163,7 @@ public class RandowmWalk : Istate
     {
         FindMushrooms.pick -= FindClosestMushroom;
         BirdHouse.feed -= EnterBirdHouseTrigger;
+        NeighbourInteraction.interactNeigbour -= EnterNeighbourTrigger;
 
         characterAgent.StopOtherGoatSound();
         characterAgent.StopWalking();
@@ -407,6 +414,76 @@ public class Distrubed : Istate
 }
 #endregion
 
+public class WalkTowardFarmer : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        characterAgent.ResetAgent();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.PlayWalkSound();
+        characterAgent.WalkAnimation();
+    }
+
+    public void Execute()
+    {
+        characterAgent.ChangeDestinationFarmer();
+
+        if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.farmerDestination.transform.position) < 1f)
+        {
+            stateMachine.ChangeState(new TalkToFarmer());
+        }
+    }
+
+    public void Exit()
+    {
+
+    }
+}
+
+
+public class TalkToFarmer : Istate
+{
+    StateMachine stateMachine;
+    CharacterAgent characterAgent;
+
+    float timer;
+
+    public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
+    {
+        characterAgent.ResetAgent();
+
+        this.stateMachine = stateMachine;
+        this.characterAgent = characterAgent;
+
+        characterAgent.StopOtherGoatSound();
+
+        characterAgent.GreetPlayerAnimation();
+        characterAgent.GreetPlayerSound();
+    }
+
+    public void Execute()
+    {
+        timer += Time.deltaTime;
+
+        if (timer > 3f)
+        {
+            stateMachine.ChangeState(new RandomWalk());
+        }
+    }
+
+    public void Exit()
+    {
+        characterAgent.ResetDestination();
+        characterAgent.ChangeDestination();
+    }
+}
+
 #region BirdHouseState
 public class WalkTowardBirdHouse : Istate
 {
@@ -476,7 +553,7 @@ public class FeedingTheBirds : Istate
 
         if (timer > 2.7f)
         {
-            stateMachine.ChangeState(new RandowmWalk());
+            stateMachine.ChangeState(new RandomWalk());
         }
     }
 
@@ -563,7 +640,7 @@ public class PickUpMushroom : Istate
 
         if (!inventoryIsFull && timer > 4f)
         {
-            stateMachine.ChangeState(new RandowmWalk());
+            stateMachine.ChangeState(new RandomWalk());
         }
 
         if(characterAgent.inventory == 5)  //ändra här och en till plats för att ändra maxantal
@@ -663,7 +740,7 @@ public class EmptyInventory : Istate
         if (timer > 4f)
         {
             characterAgent.EmptyInventory();
-            stateMachine.ChangeState(new RandowmWalk());
+            stateMachine.ChangeState(new RandomWalk());
         }
     }
 

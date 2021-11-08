@@ -11,6 +11,7 @@ public class FarmerAgent : MonoBehaviour
 
     public GameObject randomDestination;
     public GameObject destination;
+    public GameObject goatDestination;
 
     public int damping = 2;
 
@@ -38,6 +39,7 @@ public class FarmerAgent : MonoBehaviour
     public bool voiceOnCooldown;
 
     public SoundSingleton soundSingleton;
+    public DestinationSwitch destinationSwitch;
 
     RaycastForward raycastForward;
 
@@ -104,6 +106,19 @@ public class FarmerAgent : MonoBehaviour
     }
 
     #endregion Walking
+
+    public void ChangeDestinationGoat()
+    {
+        farmerAgent.enabled = true;
+        farmerAgent.speed = 1.5f;
+        destination = goatDestination;
+        farmerAgent.SetDestination(destination.transform.position);
+    }
+
+    public void ChangeDestination()
+    {
+        destinationSwitch.SwitchDestination();
+    }
 
     #region Sound
     public void PlayWalkSound()

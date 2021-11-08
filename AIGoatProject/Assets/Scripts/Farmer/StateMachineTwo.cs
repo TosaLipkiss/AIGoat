@@ -10,7 +10,7 @@ public interface IFarmerstate
 
 public class StateMachineTwo : MonoBehaviour
 {
-    IFarmerstate currentState;
+    public IFarmerstate currentState;
 
     FarmerAgent farmerAgent;
 
@@ -25,12 +25,13 @@ public class StateMachineTwo : MonoBehaviour
     void Start()
     {
         farmerAgent = GetComponent<FarmerAgent>();
-        currentState = new FarmerRandowmWalk();
+        currentState = new FarmerRandomWalk();
         currentState.Enter(this, farmerAgent);
     }
 
     void Update()
     {
+        Debug.Log(currentState);
         currentState.Execute();
     }
 
@@ -52,7 +53,7 @@ public class StateMachineTwo : MonoBehaviour
 
         if (randomState <= 2)
         {
-            ChangeState(new FarmerRandowmWalk());
+            ChangeState(new FarmerRandomWalk());
         }
         else if (randomState == 3)
         {
@@ -66,7 +67,7 @@ public class StateMachineTwo : MonoBehaviour
 
         if (randomState <= 2)
         {
-            ChangeState(new FarmerRandowmWalk());
+            ChangeState(new FarmerRandomWalk());
         }
         else if (randomState == 3)
         {
@@ -100,10 +101,10 @@ public class StateMachineTwo : MonoBehaviour
 }
 
 #region randomIdlingStates (walk,Idle,Flute)
-public class FarmerRandowmWalk : IFarmerstate
+public class FarmerRandomWalk : IFarmerstate
 {
-    StateMachineTwo stateMachine;
-    FarmerAgent characterAgent;
+    StateMachineTwo stateMachineTwo;
+    FarmerAgent farmerAgent;
 
     float timer;
     float stateDuration;
@@ -114,42 +115,49 @@ public class FarmerRandowmWalk : IFarmerstate
 
         stateDuration = Random.Range(2f, 5f);
 
-        this.stateMachine = stateMachineTwo;
-        this.characterAgent = farmerAgent;
+        this.stateMachineTwo = stateMachineTwo;
+        this.farmerAgent = farmerAgent;
+
+        NeighbourInteraction.interactNeigbour += EnterNeighbourTrigger;
 
         farmerAgent.PlayWalkSound();
         farmerAgent.WalkAnimation();
     }
 
+    void EnterNeighbourTrigger()
+    {
+        stateMachineTwo.ChangeState(new WalkTowardGoat());
+    }
 
     public void Execute()
     {
         timer += Time.deltaTime;
 
-        characterAgent.WalkAround();
+        farmerAgent.WalkAround();
 
-        if (characterAgent.CheckPlayerInfront())
+        if (farmerAgent.CheckPlayerInfront())
         {
-            stateMachine.SetPlayerInfront();
+            stateMachineTwo.SetPlayerInfront();
         }
 
         if (timer > stateDuration)
         {
-            stateMachine.FarmerRandomState();
+            stateMachineTwo.FarmerRandomState();
         }
     }
 
     public void Exit()
     {
-        characterAgent.StopOtherGoatSound();
-        characterAgent.StopWalking();
+        NeighbourInteraction.interactNeigbour -= EnterNeighbourTrigger;
+        farmerAgent.StopOtherGoatSound();
+        farmerAgent.StopWalking();
     }
 }
 
 public class FarmerIdle : IFarmerstate
 {
-    StateMachineTwo stateMachine;
-    FarmerAgent characterAgent;
+    StateMachineTwo stateMachineTwo;
+    FarmerAgent farmerAgent;
 
     float timer;
 
@@ -157,8 +165,8 @@ public class FarmerIdle : IFarmerstate
     {
         farmerAgent.ResetAgent();
 
-        this.stateMachine = stateMachineTwo;
-        this.characterAgent = farmerAgent;
+        this.stateMachineTwo = stateMachineTwo;
+        this.farmerAgent = farmerAgent;
 
         int randomAnimation = Random.Range(0, 8);
 
@@ -187,18 +195,18 @@ public class FarmerIdle : IFarmerstate
 
         if (timer > 3f)
         {
-            stateMachine.FarmerRandomState();
+            stateMachineTwo.FarmerRandomState();
         }
 
-        if (characterAgent.CheckPlayerInfront())
+        if (farmerAgent.CheckPlayerInfront())
         {
-            stateMachine.SetPlayerInfront();
+            stateMachineTwo.SetPlayerInfront();
         }
     }
 
     public void Exit()
     {
-        characterAgent.StopGoatSound();
+        farmerAgent.StopGoatSound();
     }
 }
 
@@ -209,14 +217,14 @@ public class FarmerIdle : IFarmerstate
 public class FarmerPlayerInfront : IFarmerstate
 {
     StateMachineTwo stateMachine;
-    FarmerAgent characterAgent;
+    FarmerAgent farmerAgent;
 
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
 
         this.stateMachine = stateMachineTwo;
-        this.characterAgent = farmerAgent;
+        this.farmerAgent = farmerAgent;
 
         int randomAnimation = Random.Range(0, 2);
 
@@ -233,7 +241,7 @@ public class FarmerPlayerInfront : IFarmerstate
 
     public void Execute()
     {
-        if (!characterAgent.CheckPlayerInfront())
+        if (!farmerAgent.CheckPlayerInfront())
         {
             stateMachine.delayTimer += Time.deltaTime;
             if (stateMachine.delayTimer > 2f)
@@ -253,14 +261,14 @@ public class FarmerPlayerInfront : IFarmerstate
 public class FarmerGreetPlayer : IFarmerstate
 {
     StateMachineTwo stateMachine;
-    FarmerAgent characterAgent;
+    FarmerAgent farmerAgent;
 
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
 
         this.stateMachine = stateMachineTwo;
-        this.characterAgent = farmerAgent;
+        this.farmerAgent = farmerAgent;
 
         farmerAgent.GreetPlayerAnimation();
         farmerAgent.GreetPlayerSound();
@@ -268,7 +276,7 @@ public class FarmerGreetPlayer : IFarmerstate
 
     public void Execute()
     {
-        if (!characterAgent.CheckPlayerInfront())
+        if (!farmerAgent.CheckPlayerInfront())
         {
             stateMachine.delayTimer += Time.deltaTime;
             if (stateMachine.delayTimer > 2f)
@@ -287,15 +295,15 @@ public class FarmerGreetPlayer : IFarmerstate
 
 public class FarmerDistrubed : IFarmerstate
 {
-    StateMachineTwo stateMachine;
-    FarmerAgent characterAgent;
+    StateMachineTwo stateMachineTwo;
+    FarmerAgent farmerAgent;
 
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
 
-        this.stateMachine = stateMachineTwo;
-        this.characterAgent = farmerAgent;
+        this.stateMachineTwo = stateMachineTwo;
+        this.farmerAgent = farmerAgent;
 
         int randomAnimation = Random.Range(0, 1);
 
@@ -313,13 +321,13 @@ public class FarmerDistrubed : IFarmerstate
 
     public void Execute()
     {
-        if (!characterAgent.CheckPlayerInfront())
+        if (!farmerAgent.CheckPlayerInfront())
         {
-            stateMachine.delayTimer += Time.deltaTime;
-            if (stateMachine.delayTimer > 2f)
+            stateMachineTwo.delayTimer += Time.deltaTime;
+            if (stateMachineTwo.delayTimer > 2f)
             {
-                stateMachine.delayTimer = 0f;
-                stateMachine.FarmerRandomState();
+                stateMachineTwo.delayTimer = 0f;
+                stateMachineTwo.FarmerRandomState();
             }
         }
     }
@@ -330,3 +338,74 @@ public class FarmerDistrubed : IFarmerstate
     }
 }
 #endregion
+
+
+public class WalkTowardGoat : IFarmerstate
+{
+    StateMachineTwo stateMachineTwo;
+    FarmerAgent farmerAgent;
+
+    public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
+    {
+        farmerAgent.ResetAgent();
+
+        this.stateMachineTwo = stateMachineTwo;
+        this.farmerAgent = farmerAgent;
+
+        farmerAgent.PlayWalkSound();
+        farmerAgent.WalkAnimation();
+    }
+
+    public void Execute()
+    {
+        farmerAgent.ChangeDestinationGoat();
+
+        if (Vector3.Distance(farmerAgent.character.transform.position, farmerAgent.goatDestination.transform.position) < 1f)
+        {
+            stateMachineTwo.ChangeState(new TalkToGoat());
+        }
+    }
+
+    public void Exit()
+    {
+
+    }
+}
+
+
+public class TalkToGoat : IFarmerstate
+{
+    StateMachineTwo stateMachineTwo;
+    FarmerAgent farmerAgent;
+
+    float timer;
+
+    public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
+    {
+        farmerAgent.ResetAgent();
+
+        this.stateMachineTwo = stateMachineTwo;
+        this.farmerAgent = farmerAgent;
+
+        farmerAgent.StopOtherGoatSound();
+
+        farmerAgent.GreetPlayerAnimation();
+        farmerAgent.GreetPlayerSound();
+    }
+
+    public void Execute()
+    {
+        timer += Time.deltaTime;
+
+        if (timer > 3f)
+        {
+            stateMachineTwo.ChangeState(new FarmerRandomWalk());
+        }
+    }
+
+    public void Exit()
+    {
+        farmerAgent.ResetDestination();
+        farmerAgent.ChangeDestination();
+    }
+}

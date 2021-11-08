@@ -18,6 +18,7 @@ public class CharacterAgent : MonoBehaviour
     public GameObject birdHouseDestination;
     public GameObject mushroomDestination;
     public GameObject homeDestination;
+    public GameObject farmerDestination;
 
     public Transform birdHouseTarget;
     public Transform chestTarget;
@@ -57,6 +58,7 @@ public class CharacterAgent : MonoBehaviour
     public bool voiceOnCooldown;
 
     public SoundSingleton soundSingleton;
+    public DestinationSwitch destinationSwitch;
 
     RaycastForward raycastForward;
 
@@ -169,6 +171,19 @@ public class CharacterAgent : MonoBehaviour
             goatsAgent.enabled = true;
             goatsAgent.speed = 1.5f;
         }
+    }
+
+    public void ChangeDestinationFarmer()
+    {
+        goatsAgent.enabled = true;
+        goatsAgent.speed = 1.5f;
+        destination = farmerDestination;
+        goatsAgent.SetDestination(destination.transform.position);
+    }
+
+    public void ChangeDestination()
+    {
+        destinationSwitch.SwitchDestination();
     }
 
     #endregion ChangeDestination
