@@ -24,6 +24,7 @@ public class StateMachine : MonoBehaviour
     public GameObject rayObject;
 
     public bool alreadyGreetPlayer = false;
+    public bool busy = true;
 
     public float delayTimer;
 
@@ -113,6 +114,7 @@ public class RandomWalk : Istate
     public void Enter(StateMachine stateMachine, CharacterAgent characterAgent)
     {
         characterAgent.ResetAgent();
+        stateMachine.busy = false;
 
         stateDuration = Random.Range(2f, 5f);
 
@@ -165,6 +167,7 @@ public class RandomWalk : Istate
         BirdHouse.feed -= EnterBirdHouseTrigger;
         NeighbourInteraction.interactNeigbour -= EnterNeighbourTrigger;
 
+        stateMachine.busy = true;
         characterAgent.StopOtherGoatSound();
         characterAgent.StopWalking();
     }
@@ -462,6 +465,7 @@ public class TalkToFarmer : Istate
         this.characterAgent = characterAgent;
 
         characterAgent.StopOtherGoatSound();
+        characterAgent.RotateTowardsNeighbour();
 
         characterAgent.GreetPlayerAnimation();
         characterAgent.GreetPlayerSound();

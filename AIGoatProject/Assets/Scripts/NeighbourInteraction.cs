@@ -9,6 +9,9 @@ public class NeighbourInteraction : MonoBehaviour
 
     public bool interactingWithNeighbour = false;
 
+    public StateMachine stateMachine;
+    public StateMachineTwo stateMachineTwo;
+
     float timer;
 
     private void Update()
@@ -20,12 +23,11 @@ public class NeighbourInteraction : MonoBehaviour
     {
         if (other.CompareTag("Neighbour"))
         {
-            if (interactingWithNeighbour == false)
+            if (interactingWithNeighbour == false && stateMachine.busy == false && stateMachineTwo.busy == false)
             {
                 interactingWithNeighbour = true;
 
                 timer = 0f;
-                Debug.Log("colliding with neighbour");
                 interactNeigbour?.Invoke();
             }
         }

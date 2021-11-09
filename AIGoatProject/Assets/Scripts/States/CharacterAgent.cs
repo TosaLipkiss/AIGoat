@@ -21,6 +21,7 @@ public class CharacterAgent : MonoBehaviour
     public GameObject farmerDestination;
 
     public Transform birdHouseTarget;
+    public Transform neighbourTarget;
     public Transform chestTarget;
     public int damping = 2;
 
@@ -187,6 +188,17 @@ public class CharacterAgent : MonoBehaviour
     }
 
     #endregion ChangeDestination
+
+    public void RotateTowardsNeighbour()
+    {
+        goatsAgent.enabled = false;
+
+        Vector3 lookPosition = neighbourTarget.position - transform.position;
+        lookPosition.y = 0;
+
+        var rotation = Quaternion.LookRotation(lookPosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
+    }
 
     #region FeedBird
     public void FeedingBirds()

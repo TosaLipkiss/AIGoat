@@ -17,6 +17,7 @@ public class StateMachineTwo : MonoBehaviour
     public GameObject rayObject;
 
     public bool alreadyGreetPlayer = false;
+    public bool busy = true;
 
     public float delayTimer;
 
@@ -31,7 +32,6 @@ public class StateMachineTwo : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(currentState);
         currentState.Execute();
     }
 
@@ -88,16 +88,6 @@ public class StateMachineTwo : MonoBehaviour
             ChangeState(new FarmerPlayerInfront());
         }
     }
-
-    public void DelayTimer()
-    {
-        while (delayTimer < 20f)
-        {
-            delayTimer += Time.deltaTime;
-        }
-
-        delayTimer = 0f;
-    }
 }
 
 #region randomIdlingStates (walk,Idle,Flute)
@@ -112,6 +102,12 @@ public class FarmerRandomWalk : IFarmerstate
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
+
+        if (stateMachineTwo.delayTimer > 10f)
+        {
+            stateMachineTwo.busy = false;
+            stateMachineTwo.delayTimer = 0f;
+        }
 
         stateDuration = Random.Range(2f, 5f);
 
@@ -132,6 +128,7 @@ public class FarmerRandomWalk : IFarmerstate
     public void Execute()
     {
         timer += Time.deltaTime;
+        stateMachineTwo.delayTimer += Time.deltaTime;
 
         farmerAgent.WalkAround();
 
@@ -149,6 +146,7 @@ public class FarmerRandomWalk : IFarmerstate
     public void Exit()
     {
         NeighbourInteraction.interactNeigbour -= EnterNeighbourTrigger;
+        stateMachineTwo.busy = true;
         farmerAgent.StopOtherGoatSound();
         farmerAgent.StopWalking();
     }

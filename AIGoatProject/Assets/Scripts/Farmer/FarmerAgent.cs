@@ -41,6 +41,8 @@ public class FarmerAgent : MonoBehaviour
     public SoundSingleton soundSingleton;
     public DestinationSwitch destinationSwitch;
 
+    public Transform neighbourTarget;
+
     RaycastForward raycastForward;
 
     Rigidbody rb;
@@ -118,6 +120,17 @@ public class FarmerAgent : MonoBehaviour
     public void ChangeDestination()
     {
         destinationSwitch.SwitchDestination();
+    }
+
+    public void RotateTowardsNeighbour()
+    {
+        farmerAgent.enabled = false;
+
+        Vector3 lookPosition = neighbourTarget.position - transform.position;
+        lookPosition.y = 0;
+
+        var rotation = Quaternion.LookRotation(lookPosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
     }
 
     #region Sound

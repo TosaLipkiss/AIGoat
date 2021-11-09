@@ -8,6 +8,7 @@ TagManager:
   - Character
   - MushroomSpot
   - Neighbour
+  - test
   layers:
   - Default
   - TransparentFX
