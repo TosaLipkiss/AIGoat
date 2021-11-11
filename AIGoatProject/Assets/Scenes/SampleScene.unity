@@ -883,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 883056141345898751, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.44
+      value: 10.54
       objectReference: {fileID: 0}
     - target: {fileID: 883056141345898751, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -891,7 +891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 883056141345898751, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.45
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 883056141345898751, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1156,6 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayObject: {fileID: 171734100}
   alreadyGreetPlayer: 0
+  busy: 1
   delayTimer: 0
   disturbedCountdown: 2
 --- !u!114 &171734108
@@ -1196,6 +1197,7 @@ MonoBehaviour:
   voiceOnCooldown: 0
   soundSingleton: {fileID: 297918894}
   destinationSwitch: {fileID: 1998680483}
+  neighbourTarget: {fileID: 1409632137}
 --- !u!4 &171734112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 883056141345898751, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
@@ -1214,6 +1216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactingWithNeighbour: 0
+  stateMachine: {fileID: 1409632140}
+  stateMachineTwo: {fileID: 171734107}
 --- !u!1 &173665872
 GameObject:
   m_ObjectHideFlags: 0
@@ -7457,6 +7461,7 @@ MonoBehaviour:
   homeDestination: {fileID: 1897340805}
   farmerDestination: {fileID: 2134820354}
   birdHouseTarget: {fileID: 1420866262}
+  neighbourTarget: {fileID: 171734112}
   chestTarget: {fileID: 1120129248}
   damping: 2
   inventory: 0
@@ -7596,6 +7601,7 @@ MonoBehaviour:
   flute: {fileID: 8300000, guid: 606411f8590fd844493c80b62c401950, type: 3}
   rayObject: {fileID: 1251281987}
   alreadyGreetPlayer: 0
+  busy: 1
   delayTimer: 0
   disturbedCountdown: 2
 --- !u!114 &1409632141
@@ -7625,6 +7631,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactingWithNeighbour: 0
+  stateMachine: {fileID: 1409632140}
+  stateMachineTwo: {fileID: 171734107}
 --- !u!1 &1420866261
 GameObject:
   m_ObjectHideFlags: 0
