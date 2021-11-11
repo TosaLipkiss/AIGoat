@@ -387,6 +387,8 @@ public class TalkToGoat : IFarmerstate
 
         farmerAgent.StopOtherGoatSound();
 
+        farmerAgent.RotateTowardsNeighbour();
+
         farmerAgent.GreetPlayerAnimation();
         farmerAgent.GreetPlayerSound();
     }
