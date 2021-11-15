@@ -32,6 +32,7 @@ public class StateMachineTwo : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(currentState);
         currentState.Execute();
     }
 
@@ -102,12 +103,7 @@ public class FarmerRandomWalk : IFarmerstate
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
-
-        if (stateMachineTwo.delayTimer > 10f)
-        {
-            stateMachineTwo.busy = false;
-            stateMachineTwo.delayTimer = 0f;
-        }
+        stateMachineTwo.busy = false;
 
         stateDuration = Random.Range(2f, 5f);
 
@@ -134,7 +130,6 @@ public class FarmerRandomWalk : IFarmerstate
     public void Execute()
     {
         timer += Time.deltaTime;
-        stateMachineTwo.delayTimer += Time.deltaTime;
 
         farmerAgent.WalkAround();
 
@@ -272,14 +267,14 @@ public class Mop : IFarmerstate
 #region InteractPlayerStates
 public class FarmerPlayerInfront : IFarmerstate
 {
-    StateMachineTwo stateMachine;
+    StateMachineTwo stateMachineTwo;
     FarmerAgent farmerAgent;
 
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
 
-        this.stateMachine = stateMachineTwo;
+        this.stateMachineTwo = stateMachineTwo;
         this.farmerAgent = farmerAgent;
 
         int randomAnimation = Random.Range(0, 3);
@@ -304,11 +299,11 @@ public class FarmerPlayerInfront : IFarmerstate
     {
         if (!farmerAgent.CheckPlayerInfront())
         {
-            stateMachine.delayTimer += Time.deltaTime;
-            if (stateMachine.delayTimer > 2f)
+            stateMachineTwo.delayTimer += Time.deltaTime;
+            if (stateMachineTwo.delayTimer > 2f)
             {
-                stateMachine.delayTimer = 0f;
-                stateMachine.FarmerRandomState();
+                stateMachineTwo.delayTimer = 0f;
+                stateMachineTwo.FarmerRandomState();
             }
         }
     }
@@ -321,14 +316,14 @@ public class FarmerPlayerInfront : IFarmerstate
 
 public class FarmerGreetPlayer : IFarmerstate
 {
-    StateMachineTwo stateMachine;
+    StateMachineTwo stateMachineTwo;
     FarmerAgent farmerAgent;
 
     public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
     {
         farmerAgent.ResetAgent();
 
-        this.stateMachine = stateMachineTwo;
+        this.stateMachineTwo = stateMachineTwo;
         this.farmerAgent = farmerAgent;
 
         farmerAgent.GreetPlayerAnimation();
@@ -339,11 +334,11 @@ public class FarmerGreetPlayer : IFarmerstate
     {
         if (!farmerAgent.CheckPlayerInfront())
         {
-            stateMachine.delayTimer += Time.deltaTime;
-            if (stateMachine.delayTimer > 2f)
+            stateMachineTwo.delayTimer += Time.deltaTime;
+            if (stateMachineTwo.delayTimer > 2f)
             {
-                stateMachine.delayTimer = 0f;
-                stateMachine.FarmerRandomState();
+                stateMachineTwo.delayTimer = 0f;
+                stateMachineTwo.FarmerRandomState();
             }
         }
     }

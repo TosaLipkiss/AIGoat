@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,16 +10,29 @@ public class DestinationSwitch : MonoBehaviour
     public GameObject randomDestination;
     public GameObject birdHouseDestination;
 
-
     public bool isBirdHouseDestination = false;
 
 
     void OnTriggerEnter(Collider collider)
     {
-        if(collider.tag == "Character")
+        if (collider.tag == "Character")
         {
-            SwitchDestination();
+            if (collider.gameObject.GetComponent<CharacterAgent>() != null)
+            {
+                if (collider.gameObject.GetComponent<StateMachine>().busy == false)
+                {
+                    SwitchDestination();
+                }
+            }
+            else if (collider.gameObject.GetComponent<FarmerAgent>() != null)
+            {
+                if (collider.gameObject.GetComponent<StateMachineTwo>().busy == false)
+                {
+                    SwitchDestination();
+                }
+            }
         }
+
     }
 
     public void SwitchDestination()

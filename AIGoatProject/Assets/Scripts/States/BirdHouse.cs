@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void FeedBirds();
@@ -15,7 +13,7 @@ public class BirdHouse : MonoBehaviour
     {
         cooldownTimer -= Time.deltaTime;
 
-        if(cooldownTimer <= 0f && !stillFeedingBird)
+        if (cooldownTimer <= 0f && !stillFeedingBird)
         {
             birdHouseOnCooldown = false;
         }
@@ -23,20 +21,23 @@ public class BirdHouse : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Character") && birdHouseOnCooldown == false)
+        if (other.CompareTag("Character") && birdHouseOnCooldown == false)
         {
-            feed?.Invoke();
+            if (other.gameObject.GetComponent<CharacterAgent>())
+            {
+                feed?.Invoke();
 
-            cooldownTimer = 10f;
+                cooldownTimer = 10f;
 
-            stillFeedingBird = true;
-            birdHouseOnCooldown = true;
+                stillFeedingBird = true;
+                birdHouseOnCooldown = true;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Character"))
+        if (other.CompareTag("Character"))
         {
             stillFeedingBird = false;
         }

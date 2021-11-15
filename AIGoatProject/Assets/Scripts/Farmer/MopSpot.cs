@@ -12,7 +12,6 @@ public class MopSpot : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(sweepTimer);
         cooldownTimer -= Time.deltaTime;
 
         if (cooldownTimer <= 0f && !stillSweeping)

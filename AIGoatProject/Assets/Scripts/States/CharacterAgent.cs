@@ -151,10 +151,14 @@ public class CharacterAgent : MonoBehaviour
             mushroomDestination = findMushrooms.closestMushroom;
             destination = mushroomDestination;
 
-            goatsAgent.SetDestination(destination.transform.position);
+            bool hasNewDestination = goatsAgent.SetDestination(destination.transform.position);
 
             goatsAgent.enabled = true;
             goatsAgent.speed = 1.5f;
+
+            Debug.Log("Goat agents des" + goatsAgent.destination);
+            Debug.Log("new set destination" + destination.transform.position);
+            Debug.Log("bool is" + hasNewDestination);
         }
     }
 
