@@ -194,7 +194,7 @@ public class FarmerAgent : MonoBehaviour
     public void DisturbedSound()
     {
         voiceOnCooldown = true;
-        soundSingleton.FarmerSound(canYouStopItPlease);
+        soundSingleton.FarmerSound(betterBeImportant);
     }
 
     public void DisturbedReallySound()

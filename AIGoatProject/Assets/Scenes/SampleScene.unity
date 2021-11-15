@@ -921,6 +921,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1989841885, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
+      propertyPath: m_Volume
+      value: 0.535
+      objectReference: {fileID: 0}
     - target: {fileID: 27093320092337230, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -1301,7 +1305,7 @@ MonoBehaviour:
   fineWeatherWeHave: {fileID: 8300000, guid: cf978bb0d4e0f7a44828b633da919db1, type: 3}
   walkSteps: {fileID: 8300000, guid: e86b594c9a3df11498f58ce2cf3943f4, type: 3}
   bag: {fileID: 8300000, guid: 10dc424e001611c4f885711037cc855e, type: 3}
-  mop: {fileID: 8300000, guid: ec09299c643a8734aa3d55648d8f8850, type: 3}
+  mop: {fileID: 8300000, guid: e8b3462721c728d4f9d84c8da59c115c, type: 3}
   voiceTimer: 0
   voiceOnCooldown: 0
   soundSingleton: {fileID: 297918894}
@@ -8224,8 +8228,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  rayThickness: 0.35
-  rayLenght: 4
+  rayThickness: 1
+  rayLenght: 2
 --- !u!114 &1409632139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10971,7 +10975,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.515
   m_Pitch: 1
   Loop: 1
   Mute: 0

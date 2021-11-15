@@ -240,14 +240,28 @@ public class Mop : IFarmerstate
     {
         timer += Time.deltaTime;
 
-        if (timer > 10f)
+        if (timer > 6f)
         {
-            stateMachineTwo.FarmerRandomState();
+            stateMachineTwo.RandomState();
+        }
+        if (farmerAgent.CheckPlayerInfront() && !stateMachineTwo.alreadyGreetPlayer)
+        {
+            stateMachineTwo.SetPlayerInfront();
+        }
+        else if (farmerAgent.CheckPlayerInfront() && stateMachineTwo.alreadyGreetPlayer && stateMachineTwo.disturbedCountdown == 2)
+        {
+            stateMachineTwo.ChangeState(new FarmerDistrubed());
+        }
+        else if (farmerAgent.CheckPlayerInfront() && stateMachineTwo.alreadyGreetPlayer)
+        {
+            stateMachineTwo.disturbedCountdown--;
+            stateMachineTwo.SetPlayerInfront();
         }
     }
 
     public void Exit()
     {
+        farmerAgent.StopOtherFarmerSound();
         farmerAgent.DismissMop();
     }
 }
@@ -268,7 +282,7 @@ public class FarmerPlayerInfront : IFarmerstate
         this.stateMachine = stateMachineTwo;
         this.farmerAgent = farmerAgent;
 
-        int randomAnimation = Random.Range(0, 4);
+        int randomAnimation = Random.Range(0, 3);
 
         if (randomAnimation == 0)
         {
@@ -280,11 +294,6 @@ public class FarmerPlayerInfront : IFarmerstate
             farmerAgent.DoYourWantSomething();
         }
         else if (randomAnimation == 2)
-        {
-            farmerAgent.WhatsYouUpToAnimation();
-            farmerAgent.BetterBeImportant();
-        }
-        else if (randomAnimation == 3)
         {
             farmerAgent.WhatsYouUpToAnimation();
             farmerAgent.WatchYourBack();
@@ -357,12 +366,17 @@ public class FarmerDistrubed : IFarmerstate
         this.stateMachineTwo = stateMachineTwo;
         this.farmerAgent = farmerAgent;
 
-        int randomAnimation = Random.Range(0, 1);
+        int randomAnimation = Random.Range(0, 2);
 
         if (randomAnimation == 0)
         {
             farmerAgent.DisturbedAnimation();
             farmerAgent.DisturbedSound();
+        }
+        else if (randomAnimation == 1)
+        {
+            farmerAgent.DisturbedAnimation();
+            farmerAgent.BetterBeImportant();
         }
 
         if (stateMachineTwo.disturbedCountdown == 0)
