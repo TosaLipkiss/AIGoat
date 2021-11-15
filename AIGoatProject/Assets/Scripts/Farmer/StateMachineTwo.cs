@@ -90,7 +90,7 @@ public class StateMachineTwo : MonoBehaviour
     }
 }
 
-#region randomIdlingStates (walk,Idle,Flute)
+#region randomIdlingStates (walk,Idle,mop)
 public class FarmerRandomWalk : IFarmerstate
 {
     StateMachineTwo stateMachineTwo;
@@ -115,6 +115,7 @@ public class FarmerRandomWalk : IFarmerstate
         this.farmerAgent = farmerAgent;
 
         NeighbourInteraction.interactNeigbour += EnterNeighbourTrigger;
+        MopSpot.sweep += EnterMopTrigger;
 
         farmerAgent.PlayWalkSound();
         farmerAgent.WalkAnimation();
@@ -123,6 +124,11 @@ public class FarmerRandomWalk : IFarmerstate
     void EnterNeighbourTrigger()
     {
         stateMachineTwo.ChangeState(new WalkTowardGoat());
+    }
+
+    void EnterMopTrigger()
+    {
+        stateMachineTwo.ChangeState(new Mop());
     }
 
     public void Execute()
@@ -146,6 +152,7 @@ public class FarmerRandomWalk : IFarmerstate
     public void Exit()
     {
         NeighbourInteraction.interactNeigbour -= EnterNeighbourTrigger;
+        MopSpot.sweep -= EnterMopTrigger;
         stateMachineTwo.busy = true;
         farmerAgent.StopOtherFarmerSound();
         farmerAgent.StopWalking();
@@ -205,6 +212,43 @@ public class FarmerIdle : IFarmerstate
     public void Exit()
     {
         farmerAgent.StopFarmerSound();
+    }
+}
+
+
+public class Mop : IFarmerstate
+{
+    StateMachineTwo stateMachineTwo;
+    FarmerAgent farmerAgent;
+
+    float timer;
+
+    public void Enter(StateMachineTwo stateMachineTwo, FarmerAgent farmerAgent)
+    {
+        farmerAgent.ResetAgent();
+
+        this.stateMachineTwo = stateMachineTwo;
+        this.farmerAgent = farmerAgent;
+
+        farmerAgent.MopSound();
+        farmerAgent.MopAnimation();
+
+        farmerAgent.UseMop();
+    }
+
+    public void Execute()
+    {
+        timer += Time.deltaTime;
+
+        if (timer > 10f)
+        {
+            stateMachineTwo.FarmerRandomState();
+        }
+    }
+
+    public void Exit()
+    {
+        farmerAgent.DismissMop();
     }
 }
 
@@ -347,7 +391,7 @@ public class FarmerDistrubed : IFarmerstate
 }
 #endregion
 
-
+#region Neighbor
 public class WalkTowardGoat : IFarmerstate
 {
     StateMachineTwo stateMachineTwo;
@@ -419,3 +463,5 @@ public class TalkToGoat : IFarmerstate
         farmerAgent.ChangeDestination();
     }
 }
+
+#endregion

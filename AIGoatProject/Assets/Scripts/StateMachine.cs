@@ -417,6 +417,7 @@ public class Distrubed : Istate
 }
 #endregion
 
+#region Neighbor
 public class WalkTowardFarmer : Istate
 {
     StateMachine stateMachine;
@@ -487,6 +488,8 @@ public class TalkToFarmer : Istate
         characterAgent.ChangeDestination();
     }
 }
+
+#endregion
 
 #region BirdHouseState
 public class WalkTowardBirdHouse : Istate

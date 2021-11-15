@@ -1,44 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void MopGround();
 
 public class MopSpot : MonoBehaviour
 {
-    public static event FeedBirds mop;
-    bool birdHouseOnCooldown = false;
-    bool stillFeedingBird = false;
+    public static event MopGround sweep;
+    bool mopOnCooldown = false;
+    bool stillSweeping = false;
     float cooldownTimer = 0f;
+    float sweepTimer = 0f;
 
     private void Update()
     {
+        Debug.Log(sweepTimer);
         cooldownTimer -= Time.deltaTime;
 
-        if (cooldownTimer <= 0f && !stillFeedingBird)
+        if (cooldownTimer <= 0f && !stillSweeping)
         {
-            birdHouseOnCooldown = false;
+            mopOnCooldown = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Character") && birdHouseOnCooldown == false)
+        if (other.CompareTag("Character") && mopOnCooldown == false)
         {
-            mop?.Invoke();
+            cooldownTimer = 20f;
 
-            cooldownTimer = 10f;
+            stillSweeping = true;
+            mopOnCooldown = true;
 
-            stillFeedingBird = true;
-            birdHouseOnCooldown = true;
+            sweep?.Invoke();
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Character"))
         {
-            stillFeedingBird = false;
+            stillSweeping = false;
         }
     }
 }

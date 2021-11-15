@@ -20,6 +20,12 @@ public class FarmerAgent : MonoBehaviour
 
     public Vector3 targetAngles;
 
+    public GameObject forkInHand;
+    public GameObject forkIdle;
+
+    public GameObject mopInHand;
+    public GameObject mopIdle;
+
     public AudioSource goatAudio;
     public AudioSource goatOtherAudio;
     public AudioSource goatOneShotAudio;
@@ -34,6 +40,7 @@ public class FarmerAgent : MonoBehaviour
 
     public AudioClip walkSteps;
     public AudioClip bag;
+    public AudioClip mop;
 
     public float voiceTimer;
     public bool voiceOnCooldown;
@@ -108,6 +115,24 @@ public class FarmerAgent : MonoBehaviour
     }
 
     #endregion Walking
+
+    public void DismissMop()
+    {
+        mopInHand.SetActive(false);
+        mopIdle.SetActive(true);
+
+        forkInHand.SetActive(true);
+        forkIdle.SetActive(false);
+    }
+
+    public void UseMop()
+    {
+        mopInHand.SetActive(true);
+        mopIdle.SetActive(false);
+
+        forkInHand.SetActive(false);
+        forkIdle.SetActive(true);
+    }
 
     #region ChangeDestination
 
@@ -199,6 +224,12 @@ public class FarmerAgent : MonoBehaviour
         soundSingleton.FarmerSound(fineWeatherWeHave);
     }
 
+    public void MopSound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.OtherFarmerSound(mop);
+    }
+
     #endregion
 
     #region Animation
@@ -261,6 +292,11 @@ public class FarmerAgent : MonoBehaviour
     public void TalkToNeighborAnimation()
     {
         farmerAnimator.SetTrigger("TalkToNeighbor");
+    }
+
+    public void MopAnimation()
+    {
+        farmerAnimator.SetTrigger("Mop");
     }
     #endregion
 }
