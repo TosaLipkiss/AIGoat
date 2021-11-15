@@ -21,7 +21,7 @@ public class NeighbourInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Neighbour"))
+        if (other.CompareTag("Neighbour") && timer > 15f)
         {
             if (interactingWithNeighbour == false && stateMachine.busy == false && stateMachineTwo.busy == false)
             {
