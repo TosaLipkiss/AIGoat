@@ -147,7 +147,7 @@ public class FarmerRandomWalk : IFarmerstate
     {
         NeighbourInteraction.interactNeigbour -= EnterNeighbourTrigger;
         stateMachineTwo.busy = true;
-        farmerAgent.StopOtherGoatSound();
+        farmerAgent.StopOtherFarmerSound();
         farmerAgent.StopWalking();
     }
 }
@@ -204,7 +204,7 @@ public class FarmerIdle : IFarmerstate
 
     public void Exit()
     {
-        farmerAgent.StopGoatSound();
+        farmerAgent.StopFarmerSound();
     }
 }
 
@@ -224,7 +224,7 @@ public class FarmerPlayerInfront : IFarmerstate
         this.stateMachine = stateMachineTwo;
         this.farmerAgent = farmerAgent;
 
-        int randomAnimation = Random.Range(0, 2);
+        int randomAnimation = Random.Range(0, 4);
 
         if (randomAnimation == 0)
         {
@@ -233,7 +233,17 @@ public class FarmerPlayerInfront : IFarmerstate
         else if (randomAnimation == 1)
         {
             farmerAgent.WhatsYouUpToAnimation();
-            farmerAgent.WhatYouUpToSound();
+            farmerAgent.DoYourWantSomething();
+        }
+        else if (randomAnimation == 2)
+        {
+            farmerAgent.WhatsYouUpToAnimation();
+            farmerAgent.BetterBeImportant();
+        }
+        else if (randomAnimation == 3)
+        {
+            farmerAgent.WhatsYouUpToAnimation();
+            farmerAgent.WatchYourBack();
         }
     }
 
@@ -385,19 +395,19 @@ public class TalkToGoat : IFarmerstate
         this.stateMachineTwo = stateMachineTwo;
         this.farmerAgent = farmerAgent;
 
-        farmerAgent.StopOtherGoatSound();
+        farmerAgent.StopOtherFarmerSound();
 
         farmerAgent.RotateTowardsNeighbour();
 
-        farmerAgent.GreetPlayerAnimation();
-        farmerAgent.GreetPlayerSound();
+        farmerAgent.TalkToNeighborAnimation();
+        farmerAgent.TalkToNeighborSound();
     }
 
     public void Execute()
     {
         timer += Time.deltaTime;
 
-        if (timer > 3f)
+        if (timer > 6f)
         {
             stateMachineTwo.ChangeState(new FarmerRandomWalk());
         }

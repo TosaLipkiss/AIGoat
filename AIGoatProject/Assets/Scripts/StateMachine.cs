@@ -467,15 +467,15 @@ public class TalkToFarmer : Istate
         characterAgent.StopOtherGoatSound();
         characterAgent.RotateTowardsNeighbour();
 
-        characterAgent.GreetPlayerAnimation();
-        characterAgent.GreetPlayerSound();
+        characterAgent.TalkToNeighborAnimation();
+        characterAgent.TalkToNeighborSound();
     }
 
     public void Execute()
     {
         timer += Time.deltaTime;
 
-        if (timer > 3f)
+        if (timer > 6f)
         {
             stateMachine.ChangeState(new RandomWalk());
         }

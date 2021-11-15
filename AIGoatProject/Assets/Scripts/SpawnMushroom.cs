@@ -31,7 +31,7 @@ public class SpawnMushroom : MonoBehaviour
 
             newMushroomSpot.SetActive(false);
 
-        //    ActivateMushroom();
+            ActivateMushroom();
         }
     }
 

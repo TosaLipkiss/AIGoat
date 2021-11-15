@@ -24,13 +24,13 @@ public class FarmerAgent : MonoBehaviour
     public AudioSource goatOtherAudio;
     public AudioSource goatOneShotAudio;
 
-    public AudioClip heyThereMate;
-    public AudioClip whatYouUpToSound;
+    public AudioClip howdyHowdy;
+    public AudioClip doYourWantSomething;
     public AudioClip canYouStopItPlease;
     public AudioClip gasp;
-    public AudioClip perfect;
-    public AudioClip youAreTall;
-    public AudioClip really;
+    public AudioClip betterBeImportant;
+    public AudioClip watchYourBack;
+    public AudioClip fineWeatherWeHave;
 
     public AudioClip walkSteps;
     public AudioClip bag;
@@ -109,6 +109,8 @@ public class FarmerAgent : MonoBehaviour
 
     #endregion Walking
 
+    #region ChangeDestination
+
     public void ChangeDestinationGoat()
     {
         farmerAgent.enabled = true;
@@ -133,54 +135,68 @@ public class FarmerAgent : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
     }
 
+    #endregion
+
     #region Sound
     public void PlayWalkSound()
     {
-        soundSingleton.OtherSound(walkSteps);
+        soundSingleton.OtherFarmerSound(walkSteps);
     }
 
     public void IdleGaspSound()
     {
-        soundSingleton.GoatSound(gasp);
+        soundSingleton.FarmerSound(gasp);
     }
 
-    public void WhatYouUpToSound()
+    public void DoYourWantSomething()
     {
         voiceOnCooldown = true;
-        soundSingleton.GoatSound(whatYouUpToSound);
+        soundSingleton.FarmerSound(doYourWantSomething);
     }
 
-    public void YouAreTallSound()
+    public void BetterBeImportant()
     {
         voiceOnCooldown = true;
-        soundSingleton.GoatSound(youAreTall);
+        soundSingleton.FarmerSound(betterBeImportant);
+    }
+
+    public void WatchYourBack()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.FarmerSound(watchYourBack);
     }
 
     public void DisturbedSound()
     {
         voiceOnCooldown = true;
-        soundSingleton.GoatSound(canYouStopItPlease);
+        soundSingleton.FarmerSound(canYouStopItPlease);
     }
 
     public void DisturbedReallySound()
     {
         voiceOnCooldown = true;
-        soundSingleton.GoatSound(really);
+        soundSingleton.FarmerSound(watchYourBack);
     }
 
     public void GreetPlayerSound()
     {
-        soundSingleton.GoatSound(heyThereMate);
+        soundSingleton.FarmerSound(howdyHowdy);
     }
 
-    public void StopOtherGoatSound()
+    public void StopOtherFarmerSound()
     {
-        soundSingleton.TurnOfOtherGoatSound();
+        soundSingleton.TurnOffOtherFarmerSound();
     }
 
-    public void StopGoatSound()
+    public void StopFarmerSound()
     {
-        soundSingleton.TurnOfGoatSound();
+        soundSingleton.TurnOffFarmerSound();
+    }
+
+    public void TalkToNeighborSound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.FarmerSound(fineWeatherWeHave);
     }
 
     #endregion
@@ -240,6 +256,11 @@ public class FarmerAgent : MonoBehaviour
     public void DisturbedReallyAnimation()
     {
         farmerAnimator.SetTrigger("DisturbedReally");
+    }
+
+    public void TalkToNeighborAnimation()
+    {
+        farmerAnimator.SetTrigger("TalkToNeighbor");
     }
     #endregion
 }

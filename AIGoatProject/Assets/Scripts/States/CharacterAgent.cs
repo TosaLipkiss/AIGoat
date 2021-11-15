@@ -50,6 +50,7 @@ public class CharacterAgent : MonoBehaviour
     public AudioClip perfect;
     public AudioClip youAreTall;
     public AudioClip really;
+    public AudioClip youBetItIs;
 
     public AudioClip walkSteps;
     public AudioClip fluteSound;
@@ -353,12 +354,12 @@ public class CharacterAgent : MonoBehaviour
 
     public void StopOtherGoatSound()
     {
-        soundSingleton.TurnOfOtherGoatSound();
+        soundSingleton.TurnOffOtherGoatSound();
     }
 
     public void StopGoatSound()
     {
-        soundSingleton.TurnOfGoatSound();
+        soundSingleton.TurnOffGoatSound();
     }
 
     public void BagSound()
@@ -370,6 +371,12 @@ public class CharacterAgent : MonoBehaviour
     {
         voiceOnCooldown = true;
         soundSingleton.GoatSound(perfect);
+    }
+
+    public void TalkToNeighborSound()
+    {
+        voiceOnCooldown = true;
+        soundSingleton.GoatSound(youBetItIs);
     }
 
 
@@ -463,6 +470,11 @@ public class CharacterAgent : MonoBehaviour
     public void PickMushroomAnimation()
     {
         goatAnimator.SetTrigger("PickMushroom");
+    }
+
+    public void TalkToNeighborAnimation()
+    {
+        goatAnimator.SetTrigger("TalkToNeighbor");
     }
 
     #endregion

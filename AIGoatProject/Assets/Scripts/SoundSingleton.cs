@@ -5,7 +5,9 @@ using UnityEngine;
 public class SoundSingleton : MonoBehaviour
 {
     public AudioSource goatSound;
+    public AudioSource farmerSound;
     public AudioSource otherGoatSound;
+    public AudioSource otherFarmerSound;
 
     public void GoatSound(AudioClip clip)
     {
@@ -13,9 +15,26 @@ public class SoundSingleton : MonoBehaviour
         goatSound.Play();
     }
 
-    public void TurnOfGoatSound()
+    public void FarmerSound(AudioClip clip)
+    {
+        farmerSound.clip = clip;
+        farmerSound.Play();
+    }
+
+    public void TurnOffGoatSound()
     {
         goatSound.Stop();
+    }
+
+    public void TurnOffFarmerSound()
+    {
+        farmerSound.Stop();
+    }
+
+    public void OtherFarmerSound(AudioClip clip)
+    {
+        otherFarmerSound.clip = clip;
+        otherFarmerSound.Play();
     }
 
     public void OtherSound(AudioClip clip)
@@ -30,8 +49,13 @@ public class SoundSingleton : MonoBehaviour
         goatSound.Play();
     }
 
-    public void TurnOfOtherGoatSound()
+    public void TurnOffOtherGoatSound()
     {
         otherGoatSound.Stop();
+    }
+
+    public void TurnOffOtherFarmerSound()
+    {
+        otherFarmerSound.Stop();
     }
 }
