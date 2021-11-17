@@ -155,10 +155,6 @@ public class CharacterAgent : MonoBehaviour
 
             goatsAgent.enabled = true;
             goatsAgent.speed = 1.5f;
-
-            Debug.Log("Goat agents des" + goatsAgent.destination);
-            Debug.Log("new set destination" + destination.transform.position);
-            Debug.Log("bool is" + hasNewDestination);
         }
     }
 

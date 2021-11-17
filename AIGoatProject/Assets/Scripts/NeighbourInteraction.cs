@@ -12,20 +12,25 @@ public class NeighbourInteraction : MonoBehaviour
     public StateMachine stateMachine;
     public StateMachineTwo stateMachineTwo;
 
-    float timer;
+    float timer = 10f;
 
     private void Update()
     {
         timer += Time.deltaTime;
+   //     Debug.Log("timer: " + timer + " game object: " + gameObject.name);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Neighbour") && timer > 15f)
+        if (other.CompareTag("Neighbour") && timer > 15 && other.transform.root.gameObject != gameObject)
         {
-            if (interactingWithNeighbour == false && stateMachine.busy == false && stateMachineTwo.busy == false)
+            if (stateMachine.busy == false && stateMachineTwo.busy == false)
             {
-                interactingWithNeighbour = true;
+                other.transform.root.gameObject.GetComponent<NeighbourInteraction>().timer = 0f;
+                Debug.Log("neighbor whos triggers: " + gameObject.name + " Triggers On: " + other.transform.root.name);
+
+/*                other.transform.root.gameObject.GetComponent<NeighbourInteraction>().interactingWithNeighbour = true;
+                interactingWithNeighbour = true;*/
 
                 timer = 0f;
                 interactNeigbour?.Invoke();
@@ -35,9 +40,9 @@ public class NeighbourInteraction : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(timer > 10f)
+/*        if(timer > 15f)
         {
             interactingWithNeighbour = false;
-        }
+        }*/
     }
 }

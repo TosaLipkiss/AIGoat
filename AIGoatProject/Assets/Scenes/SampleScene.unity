@@ -1344,6 +1344,11 @@ MonoBehaviour:
   soundSingleton: {fileID: 297918894}
   destinationSwitch: {fileID: 1998680483}
   neighbourTarget: {fileID: 1409632137}
+--- !u!54 &171734111 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 849922061860867252, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
+  m_PrefabInstance: {fileID: 171734098}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &171734112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 883056141345898751, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
@@ -2024,7 +2029,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &296855031
 Transform:
@@ -2266,7 +2271,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &314869376
 Transform:
@@ -2541,7 +2546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 347206371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.63, z: 1.71}
+  m_LocalPosition: {x: 0, y: 0.63, z: 0.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 171734112}
@@ -2558,7 +2563,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8, y: 2.69, z: 4.37}
+  m_Size: {x: 5.19, y: 2.26, z: 5.76}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &347206374
 Rigidbody:
@@ -4215,7 +4220,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &715997934
 Transform:
@@ -4548,10 +4553,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionX: 0
   positionZ: 0
-  goatNavmesh: {fileID: 1409632134}
-  rb: {fileID: 1409632135}
+  navmesh: {fileID: 171734104}
+  rb: {fileID: 171734111}
   randomDestination: {fileID: 834471198}
   birdHouseDestination: {fileID: 0}
+  characterAI: {fileID: 171734099}
   isBirdHouseDestination: 0
 --- !u!65 &834471200
 BoxCollider:
@@ -4561,8 +4567,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834471198}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3, y: 7.07, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4623,11 +4629,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834471198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.11, y: 0, z: -0.1}
+  m_LocalPosition: {x: 8.08, y: 0, z: 4.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &845952192
 GameObject:
@@ -7563,15 +7569,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.743723
+      value: 13.74
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9126415
+      value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.6721992
+      value: 4.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7631,22 +7637,17 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301096376}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.120000005, y: 0.091000006, z: 0.147}
+  m_Extents: {x: 0.14, y: 0.12, z: 0.147}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.031000001, z: 0.147}
   m_TimeToStationary: 0.5
---- !u!4 &1301096380 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
-  m_PrefabInstance: {fileID: 1301096375}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1301096381
-BoxCollider:
+--- !u!64 &1301096378
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7655,9 +7656,15 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.24027328, y: 0.18214864, z: 0.29467976}
-  m_Center: {x: -0.00024869523, y: -0.031467214, z: 0.14733963}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4887216478360415443, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
+--- !u!4 &1301096380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c403e808d05d444dbaba005090c8e64, type: 3}
+  m_PrefabInstance: {fileID: 1301096375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1303578736
 GameObject:
   m_ObjectHideFlags: 0
@@ -8561,7 +8568,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442076995}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 3.945, y: 4.5690002, z: 2.405}
@@ -8902,7 +8909,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1512068136
 Transform:
@@ -11428,7 +11435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960468342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.49}
+  m_LocalPosition: {x: -0, y: 0, z: 0.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1409632137}
@@ -11460,7 +11467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984058409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.86, z: 1.89}
+  m_LocalPosition: {x: -0, y: 0.86, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1409632137}
@@ -11493,7 +11500,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.87, y: 2.26, z: 5.07}
+  m_Size: {x: 5.19, y: 2.26, z: 5.76}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1998680478
 GameObject:
@@ -11524,7 +11531,7 @@ BoxCollider:
   m_GameObject: {fileID: 1998680478}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3, y: 7.07, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
@@ -11589,7 +11596,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1998680483
 MonoBehaviour:
@@ -11605,10 +11612,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionX: 0
   positionZ: 0
-  goatNavmesh: {fileID: 1409632134}
+  navmesh: {fileID: 1409632134}
   rb: {fileID: 1409632135}
   randomDestination: {fileID: 1998680478}
   birdHouseDestination: {fileID: 559492163}
+  characterAI: {fileID: 1409632131}
   isBirdHouseDestination: 0
 --- !u!1001 &2018564778
 PrefabInstance:

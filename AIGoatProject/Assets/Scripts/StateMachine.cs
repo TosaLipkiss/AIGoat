@@ -42,6 +42,8 @@ public class StateMachine : MonoBehaviour
     void Update()
     {
         currentState.Execute();
+
+    //    Debug.Log("currentState: " + currentState);
     }
 
     public void ChangeState(Istate newState)
@@ -466,7 +468,6 @@ public class TalkToFarmer : Istate
         this.characterAgent = characterAgent;
 
         characterAgent.StopOtherGoatSound();
-        characterAgent.RotateTowardsNeighbour();
 
         characterAgent.TalkToNeighborAnimation();
         characterAgent.TalkToNeighborSound();
@@ -475,6 +476,8 @@ public class TalkToFarmer : Istate
     public void Execute()
     {
         timer += Time.deltaTime;
+
+        characterAgent.RotateTowardsNeighbour();
 
         if (timer > 6f)
         {
