@@ -8816,6 +8816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree01_Prefab (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4491083891748702522, guid: 69e99013b97504241809ebe0f94169b4, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69e99013b97504241809ebe0f94169b4, type: 3}
 --- !u!1 &1510036740 stripped
@@ -11774,15 +11778,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a16ace195423192408641ea3d1d09d62, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.15398665
+      value: -0.126
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a16ace195423192408641ea3d1d09d62, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.103351414
+      value: 0.1262
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a16ace195423192408641ea3d1d09d62, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.21599999
+      value: 0.2294
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a16ace195423192408641ea3d1d09d62, type: 3}
       propertyPath: m_LocalRotation.w
