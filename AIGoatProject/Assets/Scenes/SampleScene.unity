@@ -997,7 +997,7 @@ PrefabInstance:
     - target: {fileID: 377645148791827195, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_Materials.Array.data[7]
       value: 
-      objectReference: {fileID: 2100000, guid: a4890fa82b9ebac47bc2000a0591f4d2, type: 2}
+      objectReference: {fileID: 2100000, guid: da806d9fd6780a341b40841a8ee4b857, type: 2}
     - target: {fileID: 507479924107778629, guid: 56bf84a1ee25ae54caaaf45e9c33a17f, type: 3}
       propertyPath: m_Name
       value: Farmer
