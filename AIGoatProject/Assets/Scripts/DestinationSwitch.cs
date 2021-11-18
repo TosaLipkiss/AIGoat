@@ -17,9 +17,24 @@ public class DestinationSwitch : MonoBehaviour
 
     private void Update()
     {
-        if(Vector3.Distance(characterAI.transform.position, transform.position) < 3f)
+        if (Vector3.Distance(characterAI.transform.position, transform.position) < 3f)
         {
-            SwitchDestination();
+            if(characterAI.gameObject.GetComponent<StateMachine>() != null)
+            {
+                if (characterAI.gameObject.GetComponent<StateMachine>().busy == false)
+                {
+                    Debug.Log("goat switch destination");
+                    SwitchDestination();
+                }
+            }
+            if (characterAI.gameObject.GetComponent<StateMachineTwo>() != null)
+            {
+                if (characterAI.gameObject.GetComponent<StateMachineTwo>().busy == false)
+                {
+                    Debug.Log("farmer switch destination");
+                    SwitchDestination();
+                }
+            }
         }
     }
 
