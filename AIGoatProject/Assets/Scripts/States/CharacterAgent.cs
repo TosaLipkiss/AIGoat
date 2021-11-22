@@ -478,4 +478,5 @@ public class CharacterAgent : MonoBehaviour
     }
 
     #endregion
+
 }
