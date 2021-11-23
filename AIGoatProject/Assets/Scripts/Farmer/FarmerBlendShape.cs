@@ -51,7 +51,7 @@ public class FarmerBlendShape : MonoBehaviour
             if (blendBlink <= 0f)
             {
                 blinkedFInished = false;
-                randomBlinkTimerLimit = Random.Range(1, 7);
+                randomBlinkTimerLimit = Random.Range(1, 5);
                 blendSpeed = Random.Range(1f, 4f);
             }
         }
@@ -96,6 +96,7 @@ public class FarmerBlendShape : MonoBehaviour
     public void ResetBlends()
     {
         blendBlink = 0f;
+        skinnedMeshRenderer.SetBlendShapeWeight(0, 0);
         skinnedMeshRenderer.SetBlendShapeWeight(1, 0);
         skinnedMeshRenderer.SetBlendShapeWeight(2, 0);
     }
