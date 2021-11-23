@@ -68,11 +68,7 @@ public class GoatBlendShape : MonoBehaviour
 
     public void BlendOpenEyes()
     {
-        if (blendBlink < 100f)
-        {
-            skinnedMeshRenderer.SetBlendShapeWeight(0, blendBlink);
-            blendBlink += blendSpeed;
-        }
+        skinnedMeshRenderer.SetBlendShapeWeight(0, 0);
     }
 
     public void BlendAngry()
@@ -82,6 +78,8 @@ public class GoatBlendShape : MonoBehaviour
             skinnedMeshRenderer.SetBlendShapeWeight(1, blendBlink);
             blendBlink += blendSpeed;
         }
+
+        Debug.Log(blendBlink);
     }
 
     public void BlendHappy()
@@ -95,6 +93,8 @@ public class GoatBlendShape : MonoBehaviour
 
     public void ResetBlends()
     {
+        blendBlink = 0f;
+        skinnedMeshRenderer.SetBlendShapeWeight(0, 0);
         skinnedMeshRenderer.SetBlendShapeWeight(1, 0);
         skinnedMeshRenderer.SetBlendShapeWeight(2, 0);
     }

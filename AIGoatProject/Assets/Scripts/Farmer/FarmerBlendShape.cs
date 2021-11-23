@@ -95,6 +95,7 @@ public class FarmerBlendShape : MonoBehaviour
 
     public void ResetBlends()
     {
+        blendBlink = 0f;
         skinnedMeshRenderer.SetBlendShapeWeight(1, 0);
         skinnedMeshRenderer.SetBlendShapeWeight(2, 0);
     }

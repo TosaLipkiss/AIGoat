@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 4
     manualCellSize: 1
-    cellSize: 0.25
+    cellSize: 0.05
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -8003,6 +8003,10 @@ PrefabInstance:
       value: Farmer (1)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 19b6a4975b1ecd64281c3dd754e4e23d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 19b6a4975b1ecd64281c3dd754e4e23d, type: 3}
       propertyPath: m_TagString
       value: Character
       objectReference: {fileID: 0}
@@ -13969,15 +13973,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3058300839390007011, guid: 195337b1f95bf5f4ca9a90a412786814, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.576277
+      value: -20.02
       objectReference: {fileID: 0}
     - target: {fileID: 3058300839390007011, guid: 195337b1f95bf5f4ca9a90a412786814, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3826416
+      value: 1.579
       objectReference: {fileID: 0}
     - target: {fileID: 3058300839390007011, guid: 195337b1f95bf5f4ca9a90a412786814, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.047800064
+      value: 2.547
       objectReference: {fileID: 0}
     - target: {fileID: 3058300839390007011, guid: 195337b1f95bf5f4ca9a90a412786814, type: 3}
       propertyPath: m_LocalRotation.w
