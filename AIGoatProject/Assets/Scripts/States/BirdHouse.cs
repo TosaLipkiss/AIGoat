@@ -27,7 +27,7 @@ public class BirdHouse : MonoBehaviour
             {
                 feed?.Invoke();
 
-                cooldownTimer = 10f;
+                cooldownTimer = 20f;
 
                 stillFeedingBird = true;
                 birdHouseOnCooldown = true;

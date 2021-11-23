@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoatBlendShape : MonoBehaviour
+public class FarmerBlendShape : MonoBehaviour
 {
     SkinnedMeshRenderer skinnedMeshRenderer;
     Mesh skinnedMesh;
@@ -30,7 +30,7 @@ public class GoatBlendShape : MonoBehaviour
 
     public void BlinkBlend()
     {
-        if(blinkTimer > randomBlinkTimerLimit)
+        if (blinkTimer > randomBlinkTimerLimit)
         {
             if (blinkedFInished == false && blendBlink < 100f)
             {
@@ -49,10 +49,10 @@ public class GoatBlendShape : MonoBehaviour
             skinnedMeshRenderer.SetBlendShapeWeight(0, blendBlink);
             blendBlink -= blendSpeed;
 
-            if(blendBlink <= 0f)
+            if (blendBlink <= 0f)
             {
                 blinkedFInished = false;
-                randomBlinkTimerLimit = Random.Range(1,7);
+                randomBlinkTimerLimit = Random.Range(1, 7);
                 blendSpeed = Random.Range(1f, 4f);
             }
         }
