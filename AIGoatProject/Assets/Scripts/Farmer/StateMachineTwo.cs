@@ -130,6 +130,8 @@ public class FarmerRandomWalk : IFarmerstate
     {
         timer += Time.deltaTime;
 
+        farmerAgent.BlinkBlendAnimation();
+
         farmerAgent.WalkAround();
 
         if (farmerAgent.CheckPlayerInfront())
@@ -192,6 +194,8 @@ public class FarmerIdle : IFarmerstate
     {
         timer += Time.deltaTime;
 
+        farmerAgent.BlinkBlendAnimation();
+
         if (timer > 3f)
         {
             stateMachineTwo.FarmerRandomState();
@@ -233,6 +237,8 @@ public class Mop : IFarmerstate
     public void Execute()
     {
         timer += Time.deltaTime;
+
+        farmerAgent.BlinkBlendAnimation();
 
         if (timer > 6f)
         {
@@ -296,6 +302,8 @@ public class FarmerPlayerInfront : IFarmerstate
 
     public void Execute()
     {
+        farmerAgent.BlinkBlendAnimation();
+
         if (!farmerAgent.CheckPlayerInfront())
         {
             stateMachineTwo.delayTimer += Time.deltaTime;
@@ -331,6 +339,8 @@ public class FarmerGreetPlayer : IFarmerstate
 
     public void Execute()
     {
+        farmerAgent.HappyBlendAnimation();
+
         if (!farmerAgent.CheckPlayerInfront())
         {
             stateMachineTwo.delayTimer += Time.deltaTime;
@@ -381,6 +391,8 @@ public class FarmerDistrubed : IFarmerstate
 
     public void Execute()
     {
+        farmerAgent.AngryBlendAnimation();
+
         if (!farmerAgent.CheckPlayerInfront())
         {
             stateMachineTwo.delayTimer += Time.deltaTime;
@@ -419,6 +431,7 @@ public class WalkTowardGoat : IFarmerstate
     public void Execute()
     {
         farmerAgent.ChangeDestinationGoat();
+        farmerAgent.BlinkBlendAnimation();
 
         if (Vector3.Distance(farmerAgent.character.transform.position, farmerAgent.goatDestination.transform.position) < 1f)
         {
@@ -458,6 +471,7 @@ public class TalkToGoat : IFarmerstate
         timer += Time.deltaTime;
 
         farmerAgent.RotateTowardsNeighbour();
+        farmerAgent.BlinkBlendAnimation();
 
         if (timer > 6f)
         {

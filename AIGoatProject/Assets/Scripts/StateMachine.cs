@@ -151,6 +151,7 @@ public class RandomWalk : Istate
         timer += Time.deltaTime;
 
         characterAgent.WalkAround();
+        characterAgent.BlinkBlendAnimation();
 
         if (characterAgent.CheckPlayerInfront())
         {
@@ -214,6 +215,8 @@ public class Idle : Istate
     {
         timer += Time.deltaTime;
 
+        characterAgent.BlinkBlendAnimation();
+
         if (timer > 3f)
         {
             stateMachine.RandomState();
@@ -254,6 +257,7 @@ public class PlayFlute : Istate
         timer += Time.deltaTime;
 
         characterAgent.PlayFlute();
+        characterAgent.CloseEyesBlendAnimation();
 
         if (timer > 6f)
         {
@@ -316,6 +320,8 @@ public class PlayerInfront : Istate
 
     public void Execute()
     {
+        characterAgent.BlinkBlendAnimation();
+
         if (!characterAgent.CheckPlayerInfront())
         {
             stateMachine.delayTimer += Time.deltaTime;
@@ -329,7 +335,6 @@ public class PlayerInfront : Istate
 
     public void Exit()
     {
-
     }
 }
 
@@ -351,6 +356,8 @@ public class GreetPlayer : Istate
 
     public void Execute()
     {
+        characterAgent.HappyBlendAnimation();
+
         if (!characterAgent.CheckPlayerInfront())
         {
             stateMachine.delayTimer += Time.deltaTime;
@@ -364,7 +371,6 @@ public class GreetPlayer : Istate
 
     public void Exit()
     {
-
     }
 }
 
@@ -401,6 +407,8 @@ public class Distrubed : Istate
 
     public void Execute()
     {
+        characterAgent.AngryBlendAnimation();
+
         if (!characterAgent.CheckPlayerInfront())
         {
             stateMachine.delayTimer += Time.deltaTime;
@@ -439,6 +447,7 @@ public class WalkTowardFarmer : Istate
     public void Execute()
     {
         characterAgent.ChangeDestinationFarmer();
+        characterAgent.BlinkBlendAnimation();
 
         if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.farmerDestination.transform.position) < 1f)
         {
@@ -478,6 +487,7 @@ public class TalkToFarmer : Istate
         timer += Time.deltaTime;
 
         characterAgent.RotateTowardsNeighbour();
+        characterAgent.BlinkBlendAnimation();
 
         if (timer > 6f)
         {
@@ -516,6 +526,8 @@ public class WalkTowardBirdHouse : Istate
 
     public void Execute()
     {
+        characterAgent.BlinkBlendAnimation();
+
         if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.birdHouseDestination.transform.position) < 0.5f)
         {
             stateMachine.ChangeState(new FeedingTheBirds());
@@ -555,8 +567,9 @@ public class FeedingTheBirds : Istate
         timer += Time.deltaTime;
 
         characterAgent.FeedingBirds();
+        characterAgent.BlinkBlendAnimation();
 
-        if(timer > 1f && !characterAgent.voiceOnCooldown)
+        if (timer > 1f && !characterAgent.voiceOnCooldown)
         {
             characterAgent.PerfectSound();
         }
@@ -596,6 +609,8 @@ public class WalkTowardMushroom : Istate
 
     public void Execute()
     {
+        characterAgent.BlinkBlendAnimation();
+
         if (Vector3.Distance(characterAgent.character.transform.position, characterAgent.destination.transform.position) < 0.5f)
         {
             stateMachine.ChangeState(new PickUpMushroom());
@@ -634,6 +649,8 @@ public class PickUpMushroom : Istate
     public void Execute()
     {
         timer += Time.deltaTime;
+
+        characterAgent.BlinkBlendAnimation();
 
         characterAgent.AddMushroomInInventory();
         characterAgent.CheckInventoryStorage();
@@ -695,8 +712,9 @@ public class WalkTowardHome : Istate
 
     public void Execute()
     {
-
+        characterAgent.BlinkBlendAnimation();
     }
+
     void EnterHomeTrigger()
     {
         stateMachine.ChangeState(new EmptyInventory());
@@ -733,6 +751,8 @@ public class EmptyInventory : Istate
     public void Execute()
     {
         timer += Time.deltaTime;
+
+        characterAgent.BlinkBlendAnimation();
 
         characterAgent.FaceTowardChest();
 

@@ -17,7 +17,6 @@ public class NeighbourInteraction : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-   //     Debug.Log("timer: " + timer + " game object: " + gameObject.name);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,22 +26,10 @@ public class NeighbourInteraction : MonoBehaviour
             if (stateMachine.busy == false && stateMachineTwo.busy == false)
             {
                 other.transform.root.gameObject.GetComponent<NeighbourInteraction>().timer = 0f;
-                Debug.Log("neighbor whos triggers: " + gameObject.name + " Triggers On: " + other.transform.root.name);
-
-/*                other.transform.root.gameObject.GetComponent<NeighbourInteraction>().interactingWithNeighbour = true;
-                interactingWithNeighbour = true;*/
 
                 timer = 0f;
                 interactNeigbour?.Invoke();
             }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-/*        if(timer > 15f)
-        {
-            interactingWithNeighbour = false;
-        }*/
     }
 }

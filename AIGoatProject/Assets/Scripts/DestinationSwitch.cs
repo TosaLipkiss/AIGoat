@@ -5,25 +5,35 @@ public class DestinationSwitch : MonoBehaviour
 {
     public int positionX;
     public int positionZ;
-    public NavMeshAgent navmesh;
     public Rigidbody rb;
     public GameObject randomDestination;
     public GameObject birdHouseDestination;
 
+    float speed;
+    Vector3 velocity;
+
     public GameObject characterAI;
+    public NavMeshAgent navmesh;
+    NavMeshPath navMeshPath;
+    public Transform targetPosition;
+    float elapsed = 0f;
+    bool pathAvailable;
 
     public bool isBirdHouseDestination = false;
 
+    private void Start()
+    {
+        navMeshPath = new NavMeshPath();
+    }
 
     private void Update()
     {
         if (Vector3.Distance(characterAI.transform.position, transform.position) < 3f)
         {
-            if(characterAI.gameObject.GetComponent<StateMachine>() != null)
+            if (characterAI.gameObject.GetComponent<StateMachine>() != null)
             {
                 if (characterAI.gameObject.GetComponent<StateMachine>().busy == false)
                 {
-                    Debug.Log("goat switch destination");
                     SwitchDestination();
                 }
             }
@@ -31,36 +41,42 @@ public class DestinationSwitch : MonoBehaviour
             {
                 if (characterAI.gameObject.GetComponent<StateMachineTwo>().busy == false)
                 {
-                    Debug.Log("farmer switch destination");
                     SwitchDestination();
                 }
             }
         }
+
+        if (CalculateNewPath() == true)
+        {
+            pathAvailable = true;
+        }
+        else
+        {
+            pathAvailable = false;
+        }
+
+        if (pathAvailable == false)
+        {
+            SwitchDestination();
+        }
     }
 
-    /*    void OnTriggerEnter(Collider collider)
+    bool CalculateNewPath()
+    {
+        if (navmesh.isActiveAndEnabled)
         {
-            if (collider.tag == "Character")
-            {
-                if (collider.gameObject.GetComponent<CharacterAgent>() != null)
-                {
-                    if (collider.gameObject.GetComponent<StateMachine>().busy == false)
-                    {
-                        Debug.Log("trigger new destination for goat");
-                        SwitchDestination();
-                    }
-                }
-                else if (collider.gameObject.GetComponent<FarmerAgent>() != null)
-                {
-                    if (collider.gameObject.GetComponent<StateMachineTwo>().busy == false)
-                    {
-                        Debug.Log("trigger new destination for farmer");
-                        SwitchDestination();
-                    }
-                }
-            }
+            navmesh.CalculatePath(targetPosition.position, navMeshPath);
+        }
 
-        }*/
+        if (navMeshPath.status != NavMeshPathStatus.PathComplete)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     public void SwitchDestination()
     {
@@ -72,8 +88,8 @@ public class DestinationSwitch : MonoBehaviour
         rb.useGravity = false;
         navmesh.enabled = true;
 
-        positionX = Random.Range(-5, 18);
-        positionZ = Random.Range(-13, 14);
+        positionX = Random.Range(-19, 18);
+        positionZ = Random.Range(-16, 20);
 
         transform.position = new Vector3(positionX, 0, positionZ);
     }

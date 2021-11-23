@@ -25,7 +25,6 @@ public class GoatBlendShape : MonoBehaviour
     void Update()
     {
         blinkTimer += Time.deltaTime;
-        BlinkBlend();
     }
 
     public void BlinkBlend()
@@ -56,5 +55,47 @@ public class GoatBlendShape : MonoBehaviour
                 blendSpeed = Random.Range(1f, 4f);
             }
         }
+    }
+
+    public void BlendCloseEyes()
+    {
+        if(blendBlink < 100f)
+        {
+            skinnedMeshRenderer.SetBlendShapeWeight(0, blendBlink);
+            blendBlink += blendSpeed;
+        }
+    }
+
+    public void BlendOpenEyes()
+    {
+        if (blendBlink < 100f)
+        {
+            skinnedMeshRenderer.SetBlendShapeWeight(0, blendBlink);
+            blendBlink += blendSpeed;
+        }
+    }
+
+    public void BlendAngry()
+    {
+        if (blendBlink < 100f)
+        {
+            skinnedMeshRenderer.SetBlendShapeWeight(1, blendBlink);
+            blendBlink += blendSpeed;
+        }
+    }
+
+    public void BlendHappy()
+    {
+        if (blendBlink < 100f)
+        {
+            skinnedMeshRenderer.SetBlendShapeWeight(2, blendBlink);
+            blendBlink += blendSpeed;
+        }
+    }
+
+    public void ResetBlends()
+    {
+        skinnedMeshRenderer.SetBlendShapeWeight(1, 0);
+        skinnedMeshRenderer.SetBlendShapeWeight(2, 0);
     }
 }

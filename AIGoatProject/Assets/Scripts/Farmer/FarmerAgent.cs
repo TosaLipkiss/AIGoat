@@ -47,6 +47,7 @@ public class FarmerAgent : MonoBehaviour
 
     public SoundSingleton soundSingleton;
     public DestinationSwitch destinationSwitch;
+    public FarmerBlendShape farmerBlendShape;
 
     public Transform neighbourTarget;
 
@@ -87,6 +88,8 @@ public class FarmerAgent : MonoBehaviour
 
         timerFulfilled = false;
         timer = 0f;
+
+        ResetBlendsAnimations();
     }
 
     public void ResetDestination()
@@ -299,4 +302,33 @@ public class FarmerAgent : MonoBehaviour
         farmerAnimator.SetTrigger("Mop");
     }
     #endregion
+
+    public void BlinkBlendAnimation()
+    {
+        farmerBlendShape.BlinkBlend();
+    }
+
+    public void CloseEyesBlendAnimation()
+    {
+        farmerBlendShape.BlendCloseEyes();
+    }
+
+    public void OpenEyesBlendAnimation()
+    {
+        farmerBlendShape.BlendOpenEyes();
+    }
+
+    public void AngryBlendAnimation()
+    {
+        farmerBlendShape.BlendAngry();
+    }
+    public void HappyBlendAnimation()
+    {
+        farmerBlendShape.BlendHappy();
+    }
+
+    public void ResetBlendsAnimations()
+    {
+        farmerBlendShape.ResetBlends();
+    }
 }

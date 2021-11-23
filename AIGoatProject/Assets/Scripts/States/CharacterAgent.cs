@@ -61,6 +61,7 @@ public class CharacterAgent : MonoBehaviour
 
     public SoundSingleton soundSingleton;
     public DestinationSwitch destinationSwitch;
+    public GoatBlendShape goatBlendShape;
 
     RaycastForward raycastForward;
 
@@ -78,6 +79,14 @@ public class CharacterAgent : MonoBehaviour
     {
         soundSingleton = FindObjectOfType<SoundSingleton>();
         goatAnimator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+/*        if(Input.GetKeyDown(KeyCode.V))
+        {
+            ResetBlendsAnimations();
+        }*/
     }
 
     public bool CheckPlayerInfront()
@@ -100,6 +109,7 @@ public class CharacterAgent : MonoBehaviour
         timerFulfilled = false;
         timer = 0f;
         ResetAnimationTriggers();
+        ResetBlendsAnimations();
     }
 
     public void ResetDestination()
@@ -479,4 +489,32 @@ public class CharacterAgent : MonoBehaviour
 
     #endregion
 
+    public void BlinkBlendAnimation()
+    {
+        goatBlendShape.BlinkBlend();
+    }
+
+    public void CloseEyesBlendAnimation()
+    {
+        goatBlendShape.BlendCloseEyes();
+    }
+
+    public void OpenEyesBlendAnimation()
+    {
+        goatBlendShape.BlendOpenEyes();
+    }
+
+    public void AngryBlendAnimation()
+    {
+        goatBlendShape.BlendAngry();
+    }
+    public void HappyBlendAnimation()
+    {
+        goatBlendShape.BlendHappy();
+    }
+
+    public void ResetBlendsAnimations()
+    {
+        goatBlendShape.ResetBlends();
+    }
 }
