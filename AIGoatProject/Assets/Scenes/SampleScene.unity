@@ -8048,10 +8048,14 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 348bd8aac5758ef4981cf477a590eef8, type: 2}
     - target: {fileID: 6211098117751480428, guid: 19b6a4975b1ecd64281c3dd754e4e23d, type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6211098117751480428, guid: 19b6a4975b1ecd64281c3dd754e4e23d, type: 3}
       propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211098117751480428, guid: 19b6a4975b1ecd64281c3dd754e4e23d, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[2]
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
