@@ -1,6 +1,6 @@
 # AIGoat
 
-När man startar upp från en ny omstart på datorn så tappas en reference i scenen (unity bugg?).
+När man startar upp från en ny omstart på datorn så tappas en reference i scenen (unity bugg?). Vilket gör att Farmer inte fungerar.
 
 Det fixar man genom att:
 
