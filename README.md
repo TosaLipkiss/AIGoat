@@ -4,9 +4,9 @@ När man startar upp från en ny omstart på datorn så tappas en reference i sc
 
 Det fixar man genom att:
 
-1. Det är på Farmer (1).
+1. markera Farmer (1).
 2. Öppna Farmer (1)
-3. Markera Farmer001
+3. Markera Farmer001 (finns under farmer (1))
 4. Ta bort FarmerBlendShape scriptet
 5. lägg på farmerBlendShape scriptet igen
 6. Markera Farmer (1)
