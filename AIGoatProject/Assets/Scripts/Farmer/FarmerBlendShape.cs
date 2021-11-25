@@ -5,31 +5,31 @@ using UnityEngine;
 public class FarmerBlendShape : MonoBehaviour
 {
     SkinnedMeshRenderer skinnedMeshRenderer;
-    Mesh skinnedMesh;
+/*    Mesh skinnedMesh;
     int blendShapeCount;
     float blendBlink = 0f;
     float blendIdle = 0f;
     float blendSpeed = 3f;
     float blinkTimer = 0f;
     int randomBlinkTimerLimit = 1;
-    bool blinkedFInished = false;
+    bool blinkedFInished = false;*/
 
     void Start()
     {
-        skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+/*        skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
         skinnedMesh = skinnedMeshRenderer.sharedMesh;
 
-        blendShapeCount = skinnedMesh.blendShapeCount;
+        blendShapeCount = skinnedMesh.blendShapeCount;*/
     }
 
     void Update()
     {
-        blinkTimer += Time.deltaTime;
+/*        blinkTimer += Time.deltaTime;*/
     }
 
     public void BlinkBlend()
     {
-        if (blinkTimer > randomBlinkTimerLimit)
+/*        if (blinkTimer > randomBlinkTimerLimit)
         {
             if (blinkedFInished == false && blendBlink < 100f)
             {
@@ -54,50 +54,50 @@ public class FarmerBlendShape : MonoBehaviour
                 randomBlinkTimerLimit = Random.Range(1, 5);
                 blendSpeed = Random.Range(1f, 4f);
             }
-        }
+        }*/
     }
 
     public void BlendCloseEyes()
     {
-        if (blendBlink > 0f)
+/*        if (blendBlink > 0f)
         {
             skinnedMeshRenderer.SetBlendShapeWeight(0, blendBlink);
             blendBlink -= blendSpeed;
-        }
+        }*/
     }
 
     public void BlendOpenEyes()
     {
-        if (blendBlink < 100f)
+/*        if (blendBlink < 100f)
         {
             skinnedMeshRenderer.SetBlendShapeWeight(0, blendBlink);
             blendBlink += blendSpeed;
-        }
+        }*/
     }
 
     public void BlendAngry()
     {
-        if (blendBlink < 100f)
+/*        if (blendBlink < 100f)
         {
             skinnedMeshRenderer.SetBlendShapeWeight(1, blendBlink);
             blendBlink += blendSpeed;
-        }
+        }*/
     }
 
     public void BlendHappy()
     {
-        if (blendBlink < 100f)
+/*        if (blendBlink < 100f)
         {
             skinnedMeshRenderer.SetBlendShapeWeight(2, blendBlink);
             blendBlink += blendSpeed;
-        }
+        }*/
     }
 
     public void ResetBlends()
     {
-        blendBlink = 0f;
+/*        blendBlink = 0f;
         skinnedMeshRenderer.SetBlendShapeWeight(0, 0);
         skinnedMeshRenderer.SetBlendShapeWeight(1, 0);
-        skinnedMeshRenderer.SetBlendShapeWeight(2, 0);
+        skinnedMeshRenderer.SetBlendShapeWeight(2, 0);*/
     }
 }
