@@ -670,7 +670,7 @@ public class PickUpMushroom : Istate
             stateMachine.ChangeState(new RandomWalk());
         }
 
-        if(characterAgent.inventory == 5)  //ändra här och en till plats för att ändra maxantal
+        if(characterAgent.inventory == 3)  //ändra här och en till plats för att ändra maxantal
         {
             inventoryIsFull = true;
 

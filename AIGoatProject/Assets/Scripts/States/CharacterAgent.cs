@@ -286,7 +286,7 @@ public class CharacterAgent : MonoBehaviour
     {
         inventory = aiInventory.collectedMushrooms;
 
-        if (inventory == 5)
+        if (inventory == 3)
         {
             home.inventoryFull = true;
         }
